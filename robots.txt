@@ -1,0 +1,40 @@
+# robots.txt for Kanen Coffee Troubleshooting Guide
+# This file tells search engines and AI crawlers how to access your site
+
+# Allow all search engines and AI bots
+User-agent: *
+Allow: /
+
+# Specific permissions for AI crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Sitemap location
+Sitemap: https://kanencoffee.github.io/espresso-troubleshooting/sitemap.xml
+
+# If using custom domain, update to:
+# Sitemap: https://help.kanencoffee.com/sitemap.xml
