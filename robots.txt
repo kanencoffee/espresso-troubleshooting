@@ -34,7 +34,4 @@ User-agent: Bytespider
 Allow: /
 
 # Sitemap location
-Sitemap: https://kanencoffee.github.io/espresso-troubleshooting/sitemap.xml
-
-# If using custom domain, update to:
-# Sitemap: https://help.kanencoffee.com/sitemap.xml
+Sitemap: https://help.kanencoffee.com/sitemap.xml
