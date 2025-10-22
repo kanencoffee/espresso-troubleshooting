@@ -7,7 +7,7 @@
 
 This is the official troubleshooting guide for Kanen Coffee customers. It provides expert solutions for the 20 most common espresso machine problems, from water flow issues to taste problems.
 
-**Live Site:** https://kanencoffee.github.io/espresso-troubleshooting/
+**Live Site:** https://help.kanencoffee.com/
 
 ## 🎯 Features
 
