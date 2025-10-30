@@ -110,64 +110,61 @@
 
     <!-- Local Business Schema -->
     <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Kanen Coffee",
+  "@id": "https://www.kanencoffee.com/#local",
+  "url": "https://www.kanencoffee.com",
+  "image": "https://www.kanencoffee.com/logo.png",
+  "telephone": "+1-510-859-4425",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "2319 4th Street",
+    "addressLocality": "Berkeley",
+    "addressRegion": "CA",
+    "postalCode": "94710",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 37.8715,
+    "longitude": -122.2730
+  },
+  "openingHoursSpecification": [
     {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Kanen Coffee",
-      "image": "https://www.kanencoffee.com/logo.png",
-      "@id": "https://www.kanencoffee.com",
-      "url": "https://www.kanencoffee.com",
-      "telephone": "+1-510-859-4425",
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "",
-        "addressLocality": "Berkeley",
-        "addressRegion": "CA",
-        "postalCode": "94710",
-        "addressCountry": "US"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 37.8715,
-        "longitude": -122.2730
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday"
-        ],
-        "opens": "09:00",
-        "closes": "17:00"
-    "areaServed": [
-  {
-    "@type": "City",
-    "name": "Berkeley"
-  },
-  {
-    "@type": "City",
-    "name": "Oakland"
-  },
-  {
-    "@type": "AdministrativeArea",
-    "name": "San Francisco Bay Area"
-  }
-]
-      },
-      "sameAs": [
-        "https://www.facebook.com/kanencoffee",
-        "https://www.instagram.com/kanencoffee"
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
       ],
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5",
-        "reviewCount": "50"
-      }
+      "opens": "12:00",
+      "closes": "17:00"
     }
+  ],
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Berkeley"
+    },
+    {
+      "@type": "City",
+      "name": "Oakland"
+    },
+    {
+      "@type": "AdministrativeArea",
+      "name": "San Francisco Bay Area"
+    }
+  ],
+  "sameAs": [
+    "https://www.facebook.com/kanencoffee",
+    "https://www.instagram.com/kanencoffee"
+  ]
+}
     </script>
 
     <!-- HowTo Schema for Descaling -->
@@ -1046,7 +1043,7 @@
         <p style="margin-top: 20px; font-size: 0.9em;">
             <strong>Service Areas:</strong> Berkeley, Oakland, San Francisco Bay Area, East Bay | Espresso Machine Repair, Maintenance & Parts
         </p>
-        <p style="margin-top: 10px; font-size: 0.9em;">Last Updated: October 27, 2025 | Article ID: KB-ESP-001</p>
+        <p style="margin-top: 10px; font-size: 0.9em;">Last Updated: October 29, 2025 | Article ID: KB-ESP-001</p>
         <p style="font-size: 0.9em;">&copy; 2025 Kanen Coffee. All rights reserved.</p>
     </footer>
 </body>
