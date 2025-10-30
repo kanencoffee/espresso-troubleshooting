@@ -53,7 +53,7 @@
     "https://www.kanencoffee.com/images/espresso-repair-bench.jpg"
   ],
   "datePublished": "2025-10-22",
-  "dateModified": "2025-10-27",
+  "dateModified": "2025-10-29",
   "url": "https://help.kanencoffee.com/"
 }
     </script>
@@ -169,40 +169,56 @@
 
     <!-- HowTo Schema for Descaling -->
     <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Descale Your Espresso Machine",
+  "description": "Step-by-step guide to descaling a home espresso machine safely and effectively.",
+  "totalTime": "PT45M",
+  "estimatedCost": {
+    "@type": "MonetaryAmount",
+    "currency": "USD",
+    "value": "5-15"
+  },
+  "supply": [
+    { "@type": "HowToSupply", "name": "Descaling solution" },
+    { "@type": "HowToSupply", "name": "Fresh water" }
+  ],
+  "tool": [
+    { "@type": "HowToTool", "name": "Espresso machine" },
+    { "@type": "HowToTool", "name": "Water container / pitcher" }
+  ],
+  "step": [
     {
-      "@context": "https://schema.org",
-      "@type": "HowTo",
-      "name": "How to Descale Your Espresso Machine",
-      "description": "Step-by-step guide to descaling your home espresso machine",
-      "totalTime": "PT45M",
-      "step": [
-        {
-          "@type": "HowToStep",
-          "name": "Prepare descaling solution",
-          "text": "Empty the water tank and refill with descaling solution mixed per manufacturer's instructions"
-        },
-        {
-          "@type": "HowToStep",
-          "name": "Run brew cycle",
-          "text": "Run the brew cycle without coffee until the tank is half empty"
-        },
-        {
-          "@type": "HowToStep",
-          "name": "Let solution sit",
-          "text": "Turn off and let the solution sit for 15-20 minutes"
-        },
-        {
-          "@type": "HowToStep",
-          "name": "Complete cycle",
-          "text": "Run the remaining solution through the machine"
-        },
-        {
-          "@type": "HowToStep",
-          "name": "Rinse thoroughly",
-          "text": "Rinse thoroughly with 2-3 full tanks of fresh water"
-        }
-      ]
+      "@type": "HowToStep",
+      "name": "Prepare descaling solution",
+      "text": "Empty the water tank and refill with descaling solution mixed per manufacturer's instructions."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Run brew cycle",
+      "text": "Run the brew cycle without coffee until the tank is half empty."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Let solution sit",
+      "text": "Turn off the machine and let the solution sit for 15–20 minutes."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Complete cycle",
+      "text": "Turn the machine back on and run the remaining solution through the brew group and steam wand."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Rinse thoroughly",
+      "text": "Rinse thoroughly with 2–3 full tanks of fresh water."
     }
+  ],
+  "image": [
+    "https://www.kanencoffee.com/images/descale-step-1.jpg"
+  ]
+}
     </script>
 
     <style>
