@@ -1,162 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-  <!-- Main troubleshooting page -->
+
+  <!-- Main Troubleshooting Guide -->
   <url>
     <loc>https://help.kanencoffee.com/</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2025-10-29</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
-  
-  <!-- Individual FAQ anchors for deep linking -->
+
+  <!-- Deep sections listed as logical anchors for AI discoverability -->
+  <!-- (Fragments are ignored by search engines but help AI crawlers like ChatGPT & Perplexity index contextually) -->
+  <!-- Each anchor is kept to aid AI summarization and internal referencing -->
+
   <url>
     <loc>https://help.kanencoffee.com/#q1</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2025-10-29</lastmod>
     <priority>0.8</priority>
   </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q2</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q3</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q4</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
+
   <url>
     <loc>https://help.kanencoffee.com/#q5</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2025-10-29</lastmod>
     <priority>0.8</priority>
   </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q6</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q7</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q8</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q9</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
+
   <url>
     <loc>https://help.kanencoffee.com/#q10</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2025-10-29</lastmod>
     <priority>0.8</priority>
   </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q11</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q12</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q13</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q14</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
+
   <url>
     <loc>https://help.kanencoffee.com/#q15</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2025-10-29</lastmod>
     <priority>0.8</priority>
   </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q16</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q17</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q18</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
-    <loc>https://help.kanencoffee.com/#q19</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
+
   <url>
     <loc>https://help.kanencoffee.com/#q20</loc>
-    <lastmod>2025-10-22</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2025-10-29</lastmod>
     <priority>0.8</priority>
   </url>
 
 </urlset>
 
-<!-- 
-INSTRUCTIONS:
-1. Your custom domain is: https://help.kanencoffee.com/
-2. Upload this file after DNS has propagated and custom domain is working
-3. Update lastmod dates when you update content
-4. Upload this file to the root of your GitHub repository alongside index.html
+<!--
+NOTES:
+- Search engines treat #anchors as the same page, but AI crawlers (ChatGPT, Claude, Perplexity) use them for fine-grained context.
+- You can add more #q anchors if you want them discoverable for AI semantic search.
+- Always update <lastmod> when FAQ content changes.
+- Keep the main <loc> canonical at https://help.kanencoffee.com/
+- File belongs at repo root next to index.html, robots.txt, and CNAME.
 -->
