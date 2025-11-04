@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚙️ Grinder Issues - Kanen Coffee Help</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f0ed;
+            padding: 20px;
+        }
+        nav { 
+            background: #000; 
+            padding: 15px; 
+            color: white; 
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: -20px -20px 20px -20px;
+        }
+        nav a { 
+            color: white; 
+            margin: 0 15px; 
+            text-decoration: none; 
+            font-weight: 500;
+        }
+        nav a:hover { 
+            color: #c84b31; 
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 30px;
+        }
+        .main-content {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            border-left: 5px solid #6c757d;
+            padding-left: 20px;
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+        .problem-list {
+            list-style: none;
+        }
+        .problem-item {
+            background: #f8f9fa;
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #6c757d;
+            transition: all 0.3s ease;
+        }
+        .problem-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        .problem-item h2 {
+            font-size: 1.3em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .problem-item p {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+        .problem-item ul {
+            margin-left: 20px;
+            color: #555;
+        }
+        .problem-item li {
+            margin: 5px 0;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #6c757d;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .back-link:hover {
+            color: #495057;
+        }
+        .icon {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+        .sidebar {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+        .sidebar h3 {
+            color: #6c757d;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            border-bottom: 2px solid #6c757d;
+            padding-bottom: 8px;
+        }
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+        .sidebar-section ul {
+            list-style: none;
+        }
+        .sidebar-section li {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        .sidebar-section li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #6c757d;
+        }
+        .cta-box {
+            background: linear-gradient(135deg, #6c757d 0%, #c84b31 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .cta-box h4 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .cta-box p {
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+        .cta-button {
+            background: white;
+            color: #6c757d;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px;
+        }
+        .cta-button:hover {
+            background: #f5f5f5;
+        }
+        @media (max-width: 968px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="https://www.kanencoffee.com">Home</a>
+        <a href="https://www.kanencoffee.com/espresso-machine-repairs">Repairs</a>
+        <a href="https://www.kanencoffee.com/store">Store</a>
+        <a href="https://help.kanencoffee.com">Troubleshooting</a>
+        <a href="https://www.kanencoffee.com/book-appointment" style="background: #c84b31; padding: 8px 15px; border-radius: 5px;">Book Appointment</a>
+    </nav>
+
+    <div class="container">
+        <div class="main-content">
+            <div class="header">
+                <h1><span class="icon">⚙️</span>Grinder Issues</h1>
+                <p class="subtitle">Common grinder problems and solutions</p>
+            </div>
+
+            <ul class="problem-list">
+                <li class="problem-item">
+                    <h2>Grinder runs but no output</h2>
+                    <p><strong>Common causes:</strong> Foreign object jamming burrs, broken burr carrier, worn burrs, or clogged chute.</p>
+                    <p><strong>Solutions:</strong></p>
+                    <ul>
+                        <li>Remove hopper and check for stones or debris</li>
+                        <li>Clean thoroughly with brush</li>
+                        <li>Inspect burrs for damage or wear</li>
+                        <li>Replace burrs if edges are rounded (every 300-500 lbs)</li>
+                        <li>Check burr carrier for cracks</li>
+                    </ul>
+                </li>
+
+                <li class="problem-item">
+                    <h2>Common grinder problems</h2>
+                    <p><strong>Inconsistent grind size:</strong></p>
+                    <ul>
+                        <li>Worn burrs need replacement (every 300-500 lbs coffee)</li>
+                        <li>Check burr alignment and calibration</li>
+                        <li>Clean coffee oil buildup</li>
+                        <li>Ensure hopper is properly seated</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Grinder making loud grinding noise:</strong></p>
+                    <ul>
+                        <li>Foreign object in burrs (immediately stop and check)</li>
+                        <li>Burrs touching (needs recalibration)</li>
+                        <li>Worn burr carrier or motor bearings</li>
+                        <li>Coffee beans too oily or stale</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Grinder won't turn on:</strong></p>
+                    <ul>
+                        <li>Check safety switches (hopper, grounds bin)</li>
+                        <li>Test thermal overload protection (let cool 30 min)</li>
+                        <li>Inspect power cord and switch</li>
+                        <li>Motor capacitor may need replacement</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Coffee clumping or static:</strong></p>
+                    <ul>
+                        <li>Add 1-2 drops of water to beans (RDT method)</li>
+                        <li>Use anti-static spray on catch bin</li>
+                        <li>Check humidity levels (40-60% ideal)</li>
+                        <li>Clean chute and exit point regularly</li>
+                    </ul>
+                </li>
+
+                <li class="problem-item">
+                    <h2>Burr maintenance</h2>
+                    <p><strong>Daily maintenance:</strong></p>
+                    <ul>
+                        <li>Empty and wipe hopper</li>
+                        <li>Brush out grounds from chute</li>
+                        <li>Clean dosing area</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Weekly maintenance:</strong></p>
+                    <ul>
+                        <li>Deep clean with grinder cleaning tablets</li>
+                        <li>Remove and clean hopper thoroughly</li>
+                        <li>Vacuum around burr chamber</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Monthly maintenance:</strong></p>
+                    <ul>
+                        <li>Remove upper burr and clean both burrs</li>
+                        <li>Check burr sharpness and alignment</li>
+                        <li>Clean all coffee oil residue</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Annual maintenance:</strong></p>
+                    <ul>
+                        <li>Professional service and calibration</li>
+                        <li>Replace burrs if needed</li>
+                        <li>Motor bearing inspection</li>
+                    </ul>
+                </li>
+
+                <li class="problem-item">
+                    <h2>Grinder troubleshooting</h2>
+                    <p><strong>When to replace burrs:</strong></p>
+                    <ul>
+                        <li>After 300-500 lbs of coffee (home use: 2-3 years)</li>
+                        <li>When grind becomes inconsistent</li>
+                        <li>If burr edges appear rounded or damaged</li>
+                        <li>When you can't get fine enough grind</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Grinder brands we service:</strong></p>
+                    <ul>
+                        <li><strong>We sell and service:</strong> Eureka, Baratza, Breville grinders</li>
+                        <li><strong>We also repair:</strong> Mazzer, Compak, Mahlkonig, Rancilio, and most major brands</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <a href="https://help.kanencoffee.com" class="back-link">← Back to Quick Problem Finder</a>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>🔧 Grinder Maintenance</h3>
+                <ul>
+                    <li>Clean daily after use</li>
+                    <li>Use grinder tablets weekly</li>
+                    <li>Check burrs monthly</li>
+                    <li>Replace burrs every 300-500 lbs</li>
+                    <li>Store beans properly</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>⚠️ Warning Signs</h3>
+                <ul>
+                    <li>Inconsistent grind size</li>
+                    <li>Taking longer to grind</li>
+                    <li>Loud unusual noises</li>
+                    <li>Can't adjust fine enough</li>
+                    <li>Excessive static/clumping</li>
+                </ul>
+            </div>
+
+            <div class="cta-box">
+                <h4>Grinder Repair or Upgrade?</h4>
+                <p>We service all major grinder brands</p>
+                <a href="https://www.kanencoffee.com/store" class="cta-button">Shop Grinders</a>
+                <a href="https://www.kanencoffee.com/book-appointment" class="cta-button">Book Repair</a>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>🏪 Kanen Coffee</h3>
+                <p><strong>Location:</strong><br>
+                2319 4th Street<br>
+                Berkeley, CA 94710</p>
+                <p><strong>Hours:</strong><br>
+                Mon-Fri: 12pm-5pm<br>
+                Sat-Sun: Closed</p>
+                <p><strong>By Appointment</strong></p>
+            </div>
+        </aside>
+    </div>
+</body>
+</html>
