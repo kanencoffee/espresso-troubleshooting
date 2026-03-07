@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kanen Coffee — Analytics Dashboard</title>
+
+  <!-- Chart.js 4.x -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+  <!-- Google Identity Services (OAuth 2.0 Token Client) -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <style>
+    /* ============================================================
+       BASE RESET & TOKENS
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-deep:      #1a0f0a;
+      --bg-card:      #2c1810;
+      --bg-card2:     #3a2218;
+      --gold:         #c9a84c;
+      --gold-light:   #e8c97a;
+      --cream:        #f5f0e8;
+      --cream-muted:  #c8bfb0;
+      --red-accent:   #c0392b;
+      --green-accent: #27ae60;
+      --border:       rgba(201,168,76,0.25);
+      --shadow:       0 4px 24px rgba(0,0,0,0.5);
+      --radius:       12px;
+      --font:         'Georgia', 'Times New Roman', serif;
+      --font-ui:      -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--cream);
+      font-family: var(--font-ui);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ============================================================
+       LOADING OVERLAY
+    ============================================================ */
+    #loading-overlay {
+      position: fixed; inset: 0;
+      background: rgba(26,15,10,0.92);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      transition: opacity 0.4s;
+    }
+    #loading-overlay.hidden { opacity: 0; pointer-events: none; }
+
+    .spinner {
+      width: 48px; height: 48px;
+      border: 4px solid var(--border);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text { color: var(--gold); font-size: 1rem; letter-spacing: 0.05em; }
+
+    /* ============================================================
+       SETUP PANEL
+    ============================================================ */
+    #setup-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+    }
+    #setup-panel.hidden { display: none; }
+
+    .setup-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      max-width: 560px;
+      width: 100%;
+      padding: 40px 36px;
+    }
+
+    .setup-logo {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .setup-logo .brand-name {
+      font-family: var(--font);
+      font-size: 2rem;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+    .setup-logo .brand-sub {
+      font-size: 0.8rem;
+      color: var(--cream-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-top: 2px;
+    }
+
+    .setup-card h2 {
+      font-family: var(--font);
+      font-size: 1.3rem;
+      color: var(--cream);
+      margin-bottom: 6px;
+    }
+    .setup-card p.subtitle {
+      font-size: 0.85rem;
+      color: var(--cream-muted);
+      margin-bottom: 24px;
+    }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .form-group input {
+      width: 100%;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--cream);
+      font-family: var(--font-ui);
+      font-size: 0.95rem;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus { border-color: var(--gold); }
+    .form-group input::placeholder { color: var(--cream-muted); opacity: 0.5; }
+
+    .btn-signin {
+      width: 100%;
+      background: var(--gold);
+      color: var(--bg-deep);
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-ui);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 13px;
+      cursor: pointer;
+      margin-top: 8px;
+      letter-spacing: 0.03em;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-signin:hover { background: var(--gold-light); }
+    .btn-signin:active { transform: scale(0.98); }
+
+    .setup-note {
+      margin-top: 20px;
+      padding: 14px;
+      background: rgba(201,168,76,0.08);
+      border-left: 3px solid var(--gold);
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color: var(--cream-muted);
+    }
+    .setup-note strong { color: var(--gold); }
+
+    /* Setup instructions accordion */
+    .setup-instructions { margin-top: 28px; }
+    .instructions-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--cream-muted);
+      font-family: var(--font-ui);
+      font-size: 0.85rem;
+      padding: 10px 14px;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: border-color 0.2s;
+    }
+    .instructions-toggle:hover { border-color: var(--gold); color: var(--cream); }
+    .instructions-toggle .arrow { transition: transform 0.3s; }
+    .instructions-toggle.open .arrow { transform: rotate(180deg); }
+
+    .instructions-body { display: none; padding: 16px 0 0; }
+    .instructions-body.open { display: block; }
+
+    .step {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .step-num {
+      min-width: 28px; height: 28px;
+      background: var(--gold);
+      color: var(--bg-deep);
+      border-radius: 50%;
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .step-content { font-size: 0.83rem; color: var(--cream-muted); line-height: 1.55; }
+    .step-content strong { color: var(--cream); }
+    .step-content code {
+      background: rgba(255,255,255,0.07);
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-size: 0.8rem;
+      color: var(--gold);
+    }
+
+    /* ============================================================
+       DASHBOARD SHELL
+    ============================================================ */
+    #dashboard { display: none; }
+    #dashboard.visible { display: block; }
+
+    /* Header */
+    .dash-header {
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-brand .brand-name {
+      font-family: var(--font);
+      font-size: 1.4rem;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+    }
+    .header-brand .brand-sub {
+      font-size: 0.7rem;
+      color: var(--cream-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .header-controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+    .range-btns { display: flex; gap: 6px; }
+    .range-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--cream-muted);
+      font-family: var(--font-ui);
+      font-size: 0.8rem;
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .range-btn:hover, .range-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--bg-deep);
+      font-weight: 700;
+    }
+
+    .btn-signout {
+      background: transparent;
+      border: 1px solid rgba(192,57,43,0.5);
+      border-radius: 6px;
+      color: rgba(192,57,43,0.8);
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-signout:hover { background: rgba(192,57,43,0.15); border-color: var(--red-accent); color: var(--red-accent); }
+
+    /* Main content */
+    .dash-main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 28px 24px 48px;
+    }
+
+    /* Error banner */
+    .error-banner {
+      background: rgba(192,57,43,0.15);
+      border: 1px solid rgba(192,57,43,0.4);
+      border-radius: 8px;
+      color: #e74c3c;
+      font-size: 0.85rem;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .error-banner.visible { display: block; }
+
+    /* Section cards */
+    .section-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: 20px 24px 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font);
+      font-size: 1.15rem;
+      color: var(--cream);
+      margin-bottom: 2px;
+    }
+    .section-desc {
+      font-size: 0.78rem;
+      color: var(--cream-muted);
+    }
+
+    .section-body { padding: 20px 24px 24px; }
+
+    /* KPI cards row */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+    }
+    .kpi-label {
+      font-size: 0.72rem;
+      color: var(--cream-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+    }
+    .kpi-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1.1;
+    }
+    .kpi-sub {
+      font-size: 0.72rem;
+      color: var(--cream-muted);
+      margin-top: 4px;
+    }
+
+    /* Chart containers */
+    .chart-wrap {
+      position: relative;
+      width: 100%;
+    }
+    .chart-wrap.tall { height: 300px; }
+    .chart-wrap.medium { height: 240px; }
+    .chart-wrap.short { height: 180px; }
+    .chart-wrap canvas { max-width: 100%; }
+
+    /* Doughnut layout */
+    .doughnut-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+    @media (max-width: 600px) {
+      .doughnut-layout { grid-template-columns: 1fr; }
+    }
+
+    .channel-legend { list-style: none; }
+    .channel-legend li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 0.83rem;
+      color: var(--cream-muted);
+    }
+    .legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .legend-name { flex: 1; }
+    .legend-pct { color: var(--gold); font-weight: 600; }
+
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.83rem;
+    }
+    .data-table th {
+      text-align: left;
+      padding: 8px 12px;
+      color: var(--gold);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--border);
+    }
+    .data-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--cream-muted);
+      vertical-align: middle;
+    }
+    .data-table tr:last-child td { border-bottom: none; }
+    .data-table tr:hover td { background: rgba(255,255,255,0.03); color: var(--cream); }
+    .data-table td.num { text-align: right; color: var(--cream); font-variant-numeric: tabular-nums; }
+    .data-table .rank {
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 0.8rem;
+      width: 28px;
+    }
+
+    /* Engagement rate bar inline */
+    .eng-bar-wrap { display: flex; align-items: center; gap: 8px; }
+    .eng-bar-bg {
+      flex: 1;
+      height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .eng-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--gold);
+      transition: width 0.6s ease;
+    }
+    .eng-bar-val { font-size: 0.78rem; color: var(--gold); min-width: 40px; text-align: right; }
+
+    /* Two-col KPI for engagement */
+    .kpi-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 24px; }
+
+    /* Why panel (expandable) */
+    .why-panel { margin-top: 0; }
+    .why-toggle {
+      background: rgba(201,168,76,0.06);
+      border: none;
+      border-top: 1px solid var(--border);
+      color: var(--cream-muted);
+      font-family: var(--font-ui);
+      font-size: 0.78rem;
+      padding: 10px 24px;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.2s;
+    }
+    .why-toggle:hover { background: rgba(201,168,76,0.1); color: var(--cream); }
+    .why-toggle .arrow { font-size: 0.7rem; transition: transform 0.3s; }
+    .why-toggle.open .arrow { transform: rotate(180deg); }
+
+    .why-body {
+      display: none;
+      padding: 16px 24px 20px;
+      background: rgba(201,168,76,0.04);
+      border-top: 1px solid rgba(201,168,76,0.1);
+    }
+    .why-body.open { display: block; }
+
+    .why-section { margin-bottom: 12px; }
+    .why-section:last-child { margin-bottom: 0; }
+    .why-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 4px;
+    }
+    .why-text { font-size: 0.82rem; color: var(--cream-muted); line-height: 1.6; }
+
+    /* Footer */
+    .dash-footer {
+      text-align: center;
+      padding: 28px 24px;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--cream-muted);
+    }
+    .dash-footer a { color: var(--gold); text-decoration: none; }
+    .dash-footer a:hover { text-decoration: underline; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .setup-card { padding: 28px 20px; }
+      .dash-header { padding: 14px 16px; }
+      .dash-main { padding: 16px 12px 40px; }
+      .section-header, .section-body { padding-left: 16px; padding-right: 16px; }
+      .kpi-card { padding: 12px 14px; }
+      .kpi-value { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     LOADING OVERLAY
+============================================================ -->
+<div id="loading-overlay" class="hidden">
+  <div class="spinner"></div>
+  <div class="loading-text">Brewing your data…</div>
+</div>
+
+<!-- ============================================================
+     SETUP PANEL
+============================================================ -->
+<div id="setup-panel">
+  <div class="setup-card">
+    <div class="setup-logo">
+      <div class="brand-name">Kanen Coffee</div>
+      <div class="brand-sub">Analytics Dashboard</div>
+    </div>
+
+    <h2>Connect Your Analytics</h2>
+    <p class="subtitle">Enter your GA4 Property ID and OAuth Client ID, then sign in with Google to load your dashboard.</p>
+
+    <div class="form-group">
+      <label for="property-id-input">GA4 Property ID</label>
+      <input
+        type="text"
+        id="property-id-input"
+        placeholder="e.g. 123456789"
+        inputmode="numeric"
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="client-id-input">OAuth Client ID</label>
+      <input
+        type="text"
+        id="client-id-input"
+        placeholder="e.g. 123456789-abc…apps.googleusercontent.com"
+        autocomplete="off"
+      />
+    </div>
+
+    <button class="btn-signin" id="signin-btn" onclick="handleSignIn()">
+      Sign in with Google
+    </button>
+
+    <div class="setup-note">
+      <strong>Your data never leaves your browser</strong> — this dashboard connects directly to Google Analytics using your login credentials. No data is sent to any third-party server.
+    </div>
+
+    <!-- Setup Instructions (expandable) -->
+    <div class="setup-instructions">
+      <button class="instructions-toggle" id="instr-toggle" onclick="toggleInstructions()">
+        <span>Setup Instructions — How to get your IDs</span>
+        <span class="arrow">▾</span>
+      </button>
+      <div class="instructions-body" id="instr-body">
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>Find your GA4 Property ID</strong><br />
+            Go to <a href="https://analytics.google.com" target="_blank" style="color:var(--gold)">analytics.google.com</a>
+            → click the gear icon (Admin, bottom-left) → in the <em>Property</em> column, click <strong>Property Settings</strong>
+            → copy the <strong>Property ID</strong> (a number like <code>123456789</code>). Enter just the number, no "properties/" prefix.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>Create an OAuth Client ID</strong><br />
+            Go to <a href="https://console.cloud.google.com" target="_blank" style="color:var(--gold)">console.cloud.google.com</a>
+            → create a project called <code>Kanen Analytics</code> → enable the <strong>Google Analytics Data API</strong>
+            → go to <strong>Credentials</strong> → click <strong>Create Credentials → OAuth 2.0 Client ID</strong>
+            → choose <em>Web application</em> → under <em>Authorized JavaScript origins</em> add
+            <code>https://help.kanencoffee.com</code> → click Create → copy the <strong>Client ID</strong>.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>Configure OAuth Consent Screen</strong><br />
+            In Google Cloud Console → <strong>OAuth consent screen</strong> → set User Type to <em>External</em>
+            → add your Google account as a <strong>Test user</strong> → save. This is required before the sign-in button will work.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <strong>Sign in</strong><br />
+            Enter both values above and click <strong>Sign in with Google</strong>. A popup will appear asking you to authorize
+            read-only access to Google Analytics. Once approved, your dashboard loads automatically.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================
+     DASHBOARD
+============================================================ -->
+<div id="dashboard">
+
+  <!-- Header -->
+  <header class="dash-header">
+    <div class="header-brand">
+      <div class="brand-name">Kanen Coffee</div>
+      <div class="brand-sub">Analytics Dashboard · Berkeley, CA</div>
+    </div>
+    <div class="header-controls">
+      <div class="range-btns">
+        <button class="range-btn" data-days="7"  onclick="setRange(7)">7d</button>
+        <button class="range-btn active" data-days="30" onclick="setRange(30)">30d</button>
+        <button class="range-btn" data-days="90" onclick="setRange(90)">90d</button>
+      </div>
+      <button class="btn-signout" onclick="handleSignOut()">Sign Out</button>
+    </div>
+  </header>
+
+  <!-- Error Banner -->
+  <div class="dash-main">
+    <div class="error-banner" id="error-banner"></div>
+
+    <!-- ── 1. TRAFFIC OVERVIEW ── -->
+    <div class="section-card" id="section-overview">
+      <div class="section-header">
+        <div>
+          <div class="section-title">1. Traffic Overview</div>
+          <div class="section-desc">Core site health — last <span class="range-label">30</span> days</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="kpi-row" id="overview-kpis">
+          <div class="kpi-card"><div class="kpi-label">Sessions</div><div class="kpi-value" id="kpi-sessions">—</div></div>
+          <div class="kpi-card"><div class="kpi-label">Users</div><div class="kpi-value" id="kpi-users">—</div></div>
+          <div class="kpi-card"><div class="kpi-label">New Users</div><div class="kpi-value" id="kpi-newusers">—</div></div>
+          <div class="kpi-card"><div class="kpi-label">Avg Session</div><div class="kpi-value" id="kpi-duration">—</div><div class="kpi-sub">minutes</div></div>
+        </div>
+        <div class="chart-wrap tall"><canvas id="chart-sessions"></canvas></div>
+      </div>
+      <div class="why-panel">
+        <button class="why-toggle" onclick="toggleWhy(this)">
+          <span>📊 Why monitor this &amp; how to use it</span>
+          <span class="arrow">▾</span>
+        </button>
+        <div class="why-body">
+          <div class="why-section">
+            <div class="why-label">Why it matters</div>
+            <div class="why-text">Traffic overview is your core health metric. It gives you a baseline to compare week-over-week trends and measure the impact of any marketing changes, SEO updates, or promotions. For a local repair shop, consistent traffic growth means your visibility in Berkeley and the broader Bay Area is improving.</div>
+          </div>
+          <div class="why-section">
+            <div class="why-label">How to use it</div>
+            <div class="why-text">Check weekly. A sudden drop usually signals a technical issue (broken links, indexing problem) or a Google algorithm update. Steady week-over-week growth means healthy SEO. Compare the 7-day and 30-day views after any marketing activity — blog posts, Google Business Profile updates, or social posts — to see their direct effect on traffic.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 2. ACQUISITION CHANNELS ── -->
+    <div class="section-card" id="section-acquisition">
+      <div class="section-header">
+        <div>
+          <div class="section-title">2. Acquisition Channels</div>
+          <div class="section-desc">How visitors are finding you</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="doughnut-layout">
+          <div class="chart-wrap medium"><canvas id="chart-channels"></canvas></div>
+          <ul class="channel-legend" id="channel-legend"></ul>
+        </div>
+      </div>
+      <div class="why-panel">
+        <button class="why-toggle" onclick="toggleWhy(this)">
+          <span>📊 Why monitor this &amp; how to use it</span>
+          <span class="arrow">▾</span>
+        </button>
+        <div class="why-body">
+          <div class="why-section">
+            <div class="why-label">Why it matters</div>
+            <div class="why-text">Understanding where customers find you is critical for allocating marketing effort. Organic Search growth means SEO is working — people search "espresso repair Berkeley" and find you. Heavy Direct traffic indicates brand recognition. Referral traffic from repair forums or local Bay Area directories can be a sign of strong community presence.</div>
+          </div>
+          <div class="why-section">
+            <div class="why-label">How to use it</div>
+            <div class="why-text">Check monthly. Organic Search should grow over time as your help articles and repair guides build authority. If Direct suddenly spikes, someone influential may have shared your link. If Social traffic appears, identify which platform so you can invest there. A sudden drop in Organic may mean a technical SEO regression — check Google Search Console.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 3. TOP PAGES ── -->
+    <div class="section-card" id="section-pages">
+      <div class="section-header">
+        <div>
+          <div class="section-title">3. Top Pages</div>
+          <div class="section-desc">Most-visited content by screenviews</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div style="overflow-x:auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Page</th>
+                <th style="text-align:right">Views</th>
+                <th style="min-width:160px">Engagement Rate</th>
+              </tr>
+            </thead>
+            <tbody id="pages-tbody">
+              <tr><td colspan="4" style="color:var(--cream-muted);padding:20px 12px;text-align:center">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="why-panel">
+        <button class="why-toggle" onclick="toggleWhy(this)">
+          <span>📊 Why monitor this &amp; how to use it</span>
+          <span class="arrow">▾</span>
+        </button>
+        <div class="why-body">
+          <div class="why-section">
+            <div class="why-label">Why it matters</div>
+            <div class="why-text">Top pages reveal what content drives engagement. For a service business, your repair service pages and machine product pages should rank highest. Your help articles on help.kanencoffee.com build SEO authority and should climb over time. A low-visited page that has high engagement is a hidden gem — promote it more.</div>
+          </div>
+          <div class="why-section">
+            <div class="why-label">How to use it</div>
+            <div class="why-text">Check monthly. Watch for new help articles and product pages climbing the list. Low engagement rate on a high-traffic page signals a mismatch between what users expect and what they find — consider updating the content or improving the call-to-action. Pages with &gt;70% engagement are performing excellently.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 4. GOAL EVENTS / CONVERSIONS ── -->
+    <div class="section-card" id="section-events">
+      <div class="section-header">
+        <div>
+          <div class="section-title">4. Goal Events &amp; Conversions</div>
+          <div class="section-desc">Top events by count — key conversion signals</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="chart-wrap tall"><canvas id="chart-events"></canvas></div>
+      </div>
+      <div class="why-panel">
+        <button class="why-toggle" onclick="toggleWhy(this)">
+          <span>📊 Why monitor this &amp; how to use it</span>
+          <span class="arrow">▾</span>
+        </button>
+        <div class="why-body">
+          <div class="why-section">
+            <div class="why-label">Why it matters</div>
+            <div class="why-text">Events are your most direct revenue signal. Phone number clicks and contact form submissions translate directly to repair bookings. "Book Appointment" button clicks show intent. Tracking these lets you see whether your website is converting visitors into customers — not just generating traffic.</div>
+          </div>
+          <div class="why-section">
+            <div class="why-label">How to use it</div>
+            <div class="why-text">Check weekly. Set a conversion target (e.g. 20 phone clicks/week) and track against it. If phone_click drops, check whether the phone number is prominently displayed on mobile — that's where most local searches happen. If scroll depth is low on service pages, the content may be too long or not compelling enough above the fold.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 5. DEVICE BREAKDOWN ── -->
+    <div class="section-card" id="section-devices">
+      <div class="section-header">
+        <div>
+          <div class="section-title">5. Device Breakdown</div>
+          <div class="section-desc">Sessions by device category</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="chart-wrap medium"><canvas id="chart-devices"></canvas></div>
+      </div>
+      <div class="why-panel">
+        <button class="why-toggle" onclick="toggleWhy(this)">
+          <span>📊 Why monitor this &amp; how to use it</span>
+          <span class="arrow">▾</span>
+        </button>
+        <div class="why-body">
+          <div class="why-section">
+            <div class="why-label">Why it matters</div>
+            <div class="why-text">Since you serve a local Bay Area market and have recently optimized mobile performance, this shows whether your mobile investment is paying off. A growing mobile share confirms that your site performs well on phones — critical since most local searches ("espresso repair near me") happen on mobile devices.</div>
+          </div>
+          <div class="why-section">
+            <div class="why-label">How to use it</div>
+            <div class="why-text">Check monthly. Mobile should represent 50–60%+ of sessions for a local service business. If it's lower, your mobile experience may need improvement. Compare mobile vs desktop engagement rate — if mobile engagement is significantly lower, investigate page load speed and mobile layout. Use this alongside Google Search Console's mobile usability report.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 6. GEOGRAPHIC BREAKDOWN ── -->
+    <div class="section-card" id="section-geo">
+      <div class="section-header">
+        <div>
+          <div class="section-title">6. Geographic Breakdown</div>
+          <div class="section-desc">Top cities by active users</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div style="overflow-x:auto;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>City</th>
+                <th style="text-align:right">Users</th>
+                <th style="text-align:right">Share</th>
+              </tr>
+            </thead>
+            <tbody id="geo-tbody">
+              <tr><td colspan="4" style="color:var(--cream-muted);padding:20px 12px;text-align:center">Loading…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="why-panel">
+        <button class="why-toggle" onclick="toggleWhy(this)">
+          <span>📊 Why monitor this &amp; how to use it</span>
+          <span class="arrow">▾</span>
+        </button>
+        <div class="why-body">
+          <div class="why-section">
+            <div class="why-label">Why it matters</div>
+            <div class="why-text">As a local Berkeley business, your best customers are within driving distance. Most traffic should come from Bay Area cities — Berkeley, Oakland, San Francisco, Emeryville, Albany. National traffic from your help articles and repair guides is a bonus: it builds domain authority and signals to Google that your site is a credible resource.</div>
+          </div>
+          <div class="why-section">
+            <div class="why-label">How to use it</div>
+            <div class="why-text">Check quarterly. Confirm Bay Area cities dominate local traffic. If a distant city shows up with high users, check which pages they're visiting — likely your troubleshooting guides. This organic national reach builds SEO strength over time. Consider if any Bay Area city is underrepresented — that may indicate a local SEO opportunity (e.g. targeting "espresso repair Oakland").</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 7. ENGAGEMENT QUALITY ── -->
+    <div class="section-card" id="section-engagement">
+      <div class="section-header">
+        <div>
+          <div class="section-title">7. Engagement Quality</div>
+          <div class="section-desc">Engagement rate &amp; bounce rate trend</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="kpi-pair">
+          <div class="kpi-card">
+            <div class="kpi-label">Engagement Rate</div>
+            <div class="kpi-value" id="kpi-eng-rate">—</div>
+            <div class="kpi-sub">target: &gt;55%</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Bounce Rate</div>
+            <div class="kpi-value" id="kpi-bounce">—</div>
+            <div class="kpi-sub">lower is better</div>
+          </div>
+        </div>
+        <div class="chart-wrap medium"><canvas id="chart-engagement"></canvas></div>
+      </div>
+      <div class="why-panel">
+        <button class="why-toggle" onclick="toggleWhy(this)">
+          <span>📊 Why monitor this &amp; how to use it</span>
+          <span class="arrow">▾</span>
+        </button>
+        <div class="why-body">
+          <div class="why-section">
+            <div class="why-label">Why it matters</div>
+            <div class="why-text">GA4's Engagement Rate counts sessions where a visitor stayed &gt;10 seconds, viewed more than one page, or triggered a conversion event. It replaces the old Bounce Rate as the primary quality signal. High engagement means visitors are finding what they need — a critical signal for a service business where trust and information quality drive bookings.</div>
+          </div>
+          <div class="why-section">
+            <div class="why-label">How to use it</div>
+            <div class="why-text">Check weekly. Target &gt;55% engagement rate — service businesses typically see 55–70%. If engagement drops sharply after a site change (new page, redesign, content update), investigate that change. Falling engagement on mobile specifically may indicate a performance or layout issue. Use the trend line to spot gradual drift before it becomes a problem.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /.dash-main -->
+
+  <!-- Footer -->
+  <footer class="dash-footer">
+    <p>
+      <a href="https://analytics.google.com" target="_blank">Open Google Analytics 4</a>
+      &nbsp;·&nbsp;
+      <a href="https://help.kanencoffee.com" target="_blank">help.kanencoffee.com</a>
+      &nbsp;·&nbsp;
+      GA4 Property linked · GTM-WFP77FBF
+    </p>
+    <p style="margin-top:8px;opacity:0.5;">Data is read-only and pulled live from the GA4 Data API. Nothing is stored or shared.</p>
+  </footer>
+
+</div><!-- /#dashboard -->
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+/* ============================================================
+   CONFIG — populated at runtime from the setup form
+============================================================ */
+const CONFIG = {
+  propertyId:    '',   // numeric GA4 Property ID
+  oauthClientId: '',   // OAuth 2.0 Client ID
+};
+
+/* Tracking IDs (for reference / GTM integration) */
+const GA4_MEASUREMENT_ID = 'G-ZH5VRNVL50';
+const GTM_CONTAINER_ID   = 'GTM-WFP77FBF';
+
+/* ============================================================
+   STATE
+============================================================ */
+let accessToken  = null;
+let tokenClient  = null;
+let activeDays   = 30;
+let charts       = {};   // keyed by canvas id
+
+/* ============================================================
+   UTILITIES
+============================================================ */
+function fmt(n, decimals = 0) {
+  if (n === null || n === undefined || n === '') return '—';
+  const num = parseFloat(n);
+  if (isNaN(num)) return '—';
+  return num.toLocaleString('en-US', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals,
+  });
+}
+
+function fmtDuration(seconds) {
+  if (!seconds || isNaN(seconds)) return '—';
+  const s = Math.round(parseFloat(seconds));
+  const m = Math.floor(s / 60);
+  const r = s % 60;
+  return `${m}:${String(r).padStart(2, '0')}`;
+}
+
+function fmtPct(val) {
+  if (val === null || val === undefined) return '—';
+  return (parseFloat(val) * 100).toFixed(1) + '%';
+}
+
+function showLoading(visible) {
+  document.getElementById('loading-overlay').classList.toggle('hidden', !visible);
+}
+
+function showError(msg) {
+  const el = document.getElementById('error-banner');
+  if (msg) {
+    el.textContent = 'Error: ' + msg;
+    el.classList.add('visible');
+  } else {
+    el.classList.remove('visible');
+  }
+}
+
+function destroyChart(id) {
+  if (charts[id]) { charts[id].destroy(); delete charts[id]; }
+}
+
+/* ============================================================
+   SETUP UI INTERACTIONS
+============================================================ */
+function toggleInstructions() {
+  const btn  = document.getElementById('instr-toggle');
+  const body = document.getElementById('instr-body');
+  btn.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+function toggleWhy(btn) {
+  btn.classList.toggle('open');
+  const body = btn.nextElementSibling;
+  body.classList.toggle('open');
+}
+
+/* ============================================================
+   AUTH
+============================================================ */
+function handleSignIn() {
+  const propId   = document.getElementById('property-id-input').value.trim();
+  const clientId = document.getElementById('client-id-input').value.trim();
+
+  if (!propId || !/^\d+$/.test(propId)) {
+    alert('Please enter a valid numeric GA4 Property ID (e.g. 123456789).');
+    return;
+  }
+  if (!clientId || !clientId.includes('.apps.googleusercontent.com')) {
+    alert('Please enter a valid OAuth Client ID (ends in .apps.googleusercontent.com).');
+    return;
+  }
+
+  CONFIG.propertyId    = propId;
+  CONFIG.oauthClientId = clientId;
+
+  /* Initialize token client and request token */
+  tokenClient = google.accounts.oauth2.initTokenClient({
+    client_id: CONFIG.oauthClientId,
+    scope: 'https://www.googleapis.com/auth/analytics.readonly',
+    callback: handleTokenResponse,
+  });
+
+  tokenClient.requestAccessToken({ prompt: 'consent' });
+}
+
+function handleTokenResponse(response) {
+  if (response.error) {
+    alert('Authentication failed: ' + (response.error_description || response.error));
+    return;
+  }
+  accessToken = response.access_token;
+
+  /* Switch from setup panel to dashboard */
+  document.getElementById('setup-panel').classList.add('hidden');
+  document.getElementById('dashboard').classList.add('visible');
+
+  loadAllData();
+}
+
+function handleSignOut() {
+  if (accessToken) {
+    google.accounts.oauth2.revoke(accessToken, () => {});
+    accessToken = null;
+  }
+  /* Reset to setup panel */
+  document.getElementById('dashboard').classList.remove('visible');
+  document.getElementById('setup-panel').classList.remove('hidden');
+  /* Destroy all charts */
+  Object.keys(charts).forEach(id => { charts[id].destroy(); delete charts[id]; });
+  resetKPIs();
+}
+
+function resetKPIs() {
+  ['kpi-sessions','kpi-users','kpi-newusers','kpi-duration','kpi-eng-rate','kpi-bounce']
+    .forEach(id => { const el = document.getElementById(id); if (el) el.textContent = '—'; });
+}
+
+/* ============================================================
+   DATE RANGE
+============================================================ */
+function setRange(days) {
+  activeDays = days;
+  document.querySelectorAll('.range-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.days) === days);
+  });
+  document.querySelectorAll('.range-label').forEach(el => { el.textContent = days; });
+  if (accessToken) loadAllData();
+}
+
+function dateRange(days) {
+  const end   = new Date();
+  const start = new Date();
+  start.setDate(end.getDate() - (days - 1));
+  const fmt = d => d.toISOString().slice(0, 10);
+  return [fmt(start), fmt(end)];
+}
+
+/* ============================================================
+   GA4 DATA API FETCH
+============================================================ */
+async function fetchGA4(body) {
+  const url = `https://analyticsdata.googleapis.com/v1beta/properties/${CONFIG.propertyId}:runReport`;
+  const resp = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${accessToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!resp.ok) {
+    const err = await resp.json().catch(() => ({}));
+    const msg = err?.error?.message || `HTTP ${resp.status}`;
+    throw new Error(msg);
+  }
+  return resp.json();
+}
+
+/* ============================================================
+   CHART DEFAULTS
+============================================================ */
+Chart.defaults.color = '#c8bfb0';
+Chart.defaults.borderColor = 'rgba(201,168,76,0.15)';
+
+const CHART_COLORS = [
+  '#c9a84c', '#e8c97a', '#a06c1e', '#d4956a',
+  '#7a9e6e', '#6b8cba', '#ba6b8c', '#8c6bba',
+  '#ba8c6b', '#6bbab8'
+];
+
+function lineDefaults(label, data, labels) {
+  return {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label,
+        data,
+        borderColor: '#c9a84c',
+        backgroundColor: 'rgba(201,168,76,0.12)',
+        borderWidth: 2,
+        pointRadius: data.length > 30 ? 2 : 4,
+        pointBackgroundColor: '#c9a84c',
+        tension: 0.35,
+        fill: true,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: {
+          ticks: { maxTicksLimit: 8, font: { size: 11 } },
+          grid: { color: 'rgba(255,255,255,0.04)' }
+        },
+        y: {
+          ticks: { font: { size: 11 } },
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          beginAtZero: true,
+        }
+      }
+    }
+  };
+}
+
+/* ============================================================
+   LOAD ALL DATA SECTIONS
+============================================================ */
+async function loadAllData() {
+  showLoading(true);
+  showError('');
+
+  try {
+    await Promise.all([
+      loadOverview(),
+      loadAcquisition(),
+      loadTopPages(),
+      loadEvents(),
+      loadDevices(),
+      loadGeography(),
+      loadEngagement(),
+    ]);
+  } catch (err) {
+    showError(err.message || 'Failed to load analytics data. Check your Property ID and OAuth permissions.');
+    console.error(err);
+  } finally {
+    showLoading(false);
+  }
+}
+
+/* ============================================================
+   1. TRAFFIC OVERVIEW
+============================================================ */
+async function loadOverview() {
+  const [startDate, endDate] = dateRange(activeDays);
+
+  const data = await fetchGA4({
+    dateRanges: [{ startDate, endDate }],
+    metrics: [
+      { name: 'sessions' },
+      { name: 'activeUsers' },
+      { name: 'newUsers' },
+      { name: 'averageSessionDuration' },
+    ],
+    dimensions: [{ name: 'date' }],
+    orderBys: [{ dimension: { dimensionName: 'date' } }],
+  });
+
+  /* Aggregate totals */
+  let totSessions = 0, totUsers = 0, totNew = 0, totDur = 0;
+  const labels = [], sessData = [];
+
+  (data.rows || []).forEach(row => {
+    const dateStr = row.dimensionValues[0].value;
+    const label   = `${dateStr.slice(4,6)}/${dateStr.slice(6,8)}`;
+    const sess    = parseFloat(row.metricValues[0].value) || 0;
+    const users   = parseFloat(row.metricValues[1].value) || 0;
+    const newU    = parseFloat(row.metricValues[2].value) || 0;
+    const dur     = parseFloat(row.metricValues[3].value) || 0;
+
+    labels.push(label);
+    sessData.push(sess);
+    totSessions += sess;
+    totUsers    += users;
+    totNew      += newU;
+    totDur      += dur;
+  });
+
+  const avgDur = data.rows?.length ? totDur / data.rows.length : 0;
+
+  document.getElementById('kpi-sessions').textContent  = fmt(totSessions);
+  document.getElementById('kpi-users').textContent     = fmt(totUsers);
+  document.getElementById('kpi-newusers').textContent  = fmt(totNew);
+  document.getElementById('kpi-duration').textContent  = fmtDuration(avgDur);
+
+  /* Chart */
+  destroyChart('chart-sessions');
+  const ctx = document.getElementById('chart-sessions').getContext('2d');
+  charts['chart-sessions'] = new Chart(ctx, lineDefaults('Sessions', sessData, labels));
+}
+
+/* ============================================================
+   2. ACQUISITION CHANNELS
+============================================================ */
+async function loadAcquisition() {
+  const [startDate, endDate] = dateRange(activeDays);
+
+  const data = await fetchGA4({
+    dateRanges: [{ startDate, endDate }],
+    metrics: [{ name: 'sessions' }],
+    dimensions: [{ name: 'sessionDefaultChannelGroup' }],
+    orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+  });
+
+  const rows   = data.rows || [];
+  const labels = rows.map(r => r.dimensionValues[0].value);
+  const values = rows.map(r => parseFloat(r.metricValues[0].value) || 0);
+  const total  = values.reduce((a, b) => a + b, 0);
+
+  /* Doughnut chart */
+  destroyChart('chart-channels');
+  const ctx = document.getElementById('chart-channels').getContext('2d');
+  charts['chart-channels'] = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: CHART_COLORS.slice(0, labels.length),
+        borderColor: '#1a0f0a',
+        borderWidth: 3,
+        hoverOffset: 6,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      cutout: '62%',
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const pct = total ? ((ctx.raw / total) * 100).toFixed(1) : 0;
+              return ` ${ctx.label}: ${fmt(ctx.raw)} (${pct}%)`;
+            }
+          }
+        }
+      }
+    }
+  });
+
+  /* Custom legend */
+  const legend = document.getElementById('channel-legend');
+  legend.innerHTML = '';
+  labels.forEach((label, i) => {
+    const pct = total ? ((values[i] / total) * 100).toFixed(1) : '0.0';
+    const li  = document.createElement('li');
+    li.innerHTML = `
+      <span class="legend-dot" style="background:${CHART_COLORS[i] || '#666'}"></span>
+      <span class="legend-name">${label}</span>
+      <span class="legend-pct">${pct}%</span>
+    `;
+    legend.appendChild(li);
+  });
+}
+
+/* ============================================================
+   3. TOP PAGES
+============================================================ */
+async function loadTopPages() {
+  const [startDate, endDate] = dateRange(activeDays);
+
+  const data = await fetchGA4({
+    dateRanges: [{ startDate, endDate }],
+    metrics: [
+      { name: 'screenPageViews' },
+      { name: 'engagementRate' },
+    ],
+    dimensions: [
+      { name: 'pagePath' },
+      { name: 'pageTitle' },
+    ],
+    orderBys: [{ metric: { metricName: 'screenPageViews' }, desc: true }],
+    limit: 10,
+  });
+
+  const tbody = document.getElementById('pages-tbody');
+  tbody.innerHTML = '';
+
+  if (!data.rows || data.rows.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="color:var(--cream-muted);padding:20px 12px;text-align:center">No page data found for this period.</td></tr>';
+    return;
+  }
+
+  data.rows.forEach((row, i) => {
+    const path    = row.dimensionValues[0].value;
+    const title   = row.dimensionValues[1].value || path;
+    const views   = parseFloat(row.metricValues[0].value) || 0;
+    const engRate = parseFloat(row.metricValues[1].value) || 0;
+    const engPct  = (engRate * 100).toFixed(1);
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="rank">${i + 1}</td>
+      <td>
+        <div style="color:var(--cream);font-size:0.83rem;margin-bottom:2px;max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${title}</div>
+        <div style="color:var(--cream-muted);font-size:0.72rem;opacity:0.7;max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${path}</div>
+      </td>
+      <td class="num">${fmt(views)}</td>
+      <td>
+        <div class="eng-bar-wrap">
+          <div class="eng-bar-bg"><div class="eng-bar-fill" style="width:${Math.min(engRate*100,100)}%"></div></div>
+          <span class="eng-bar-val">${engPct}%</span>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+/* ============================================================
+   4. EVENTS / CONVERSIONS
+============================================================ */
+async function loadEvents() {
+  const [startDate, endDate] = dateRange(activeDays);
+
+  const data = await fetchGA4({
+    dateRanges: [{ startDate, endDate }],
+    metrics: [{ name: 'eventCount' }],
+    dimensions: [{ name: 'eventName' }],
+    orderBys: [{ metric: { metricName: 'eventCount' }, desc: true }],
+    limit: 10,
+  });
+
+  const rows   = data.rows || [];
+  const labels = rows.map(r => r.dimensionValues[0].value);
+  const values = rows.map(r => parseFloat(r.metricValues[0].value) || 0);
+
+  /* Color-code key conversion events */
+  const conversionEvents = new Set(['phone_click', 'contact_form_submit', 'book_appointment', 'generate_lead']);
+  const bgColors = labels.map(l =>
+    conversionEvents.has(l.toLowerCase()) ? '#27ae60' : 'rgba(201,168,76,0.75)'
+  );
+
+  destroyChart('chart-events');
+  const ctx = document.getElementById('chart-events').getContext('2d');
+  charts['chart-events'] = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Event Count',
+        data: values,
+        backgroundColor: bgColors,
+        borderRadius: 6,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ` ${fmt(ctx.raw)} events`,
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { font: { size: 11 } },
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          beginAtZero: true,
+        },
+        y: {
+          ticks: { font: { size: 11 } },
+          grid: { display: false },
+        }
+      }
+    }
+  });
+}
+
+/* ============================================================
+   5. DEVICE BREAKDOWN
+============================================================ */
+async function loadDevices() {
+  const [startDate, endDate] = dateRange(activeDays);
+
+  const data = await fetchGA4({
+    dateRanges: [{ startDate, endDate }],
+    metrics: [
+      { name: 'sessions' },
+      { name: 'engagementRate' },
+    ],
+    dimensions: [{ name: 'deviceCategory' }],
+    orderBys: [{ metric: { metricName: 'sessions' }, desc: true }],
+  });
+
+  const rows    = data.rows || [];
+  const labels  = rows.map(r => {
+    const raw = r.dimensionValues[0].value;
+    return raw.charAt(0).toUpperCase() + raw.slice(1);
+  });
+  const sessions = rows.map(r => parseFloat(r.metricValues[0].value) || 0);
+  const engRates = rows.map(r => parseFloat(r.metricValues[1].value) || 0);
+
+  const deviceColors = { Mobile: '#c9a84c', Desktop: '#6b8cba', Tablet: '#7a9e6e' };
+  const bgColors = labels.map(l => deviceColors[l] || CHART_COLORS[0]);
+
+  destroyChart('chart-devices');
+  const ctx = document.getElementById('chart-devices').getContext('2d');
+  charts['chart-devices'] = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Sessions',
+        data: sessions,
+        backgroundColor: bgColors,
+        borderRadius: 8,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => {
+              const idx     = ctx.dataIndex;
+              const engPct  = (engRates[idx] * 100).toFixed(1);
+              return [` Sessions: ${fmt(ctx.raw)}`, ` Engagement Rate: ${engPct}%`];
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { font: { size: 11 } },
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          beginAtZero: true,
+        },
+        y: {
+          ticks: { font: { size: 12 }, color: '#f5f0e8' },
+          grid: { display: false },
+        }
+      }
+    }
+  });
+}
+
+/* ============================================================
+   6. GEOGRAPHIC BREAKDOWN
+============================================================ */
+async function loadGeography() {
+  const [startDate, endDate] = dateRange(activeDays);
+
+  const data = await fetchGA4({
+    dateRanges: [{ startDate, endDate }],
+    metrics: [{ name: 'activeUsers' }],
+    dimensions: [{ name: 'city' }],
+    orderBys: [{ metric: { metricName: 'activeUsers' }, desc: true }],
+    limit: 10,
+  });
+
+  const rows  = data.rows || [];
+  const total = rows.reduce((s, r) => s + (parseFloat(r.metricValues[0].value) || 0), 0);
+
+  const tbody = document.getElementById('geo-tbody');
+  tbody.innerHTML = '';
+
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="4" style="color:var(--cream-muted);padding:20px 12px;text-align:center">No geographic data found.</td></tr>';
+    return;
+  }
+
+  /* Bay Area cities to highlight */
+  const bayArea = new Set([
+    'Berkeley', 'Oakland', 'San Francisco', 'Emeryville', 'Albany',
+    'El Cerrito', 'Richmond', 'Alameda', 'San Jose', 'Palo Alto',
+    'Walnut Creek', 'Fremont', 'Hayward', 'Concord', 'San Mateo',
+  ]);
+
+  rows.forEach((row, i) => {
+    const city  = row.dimensionValues[0].value;
+    const users = parseFloat(row.metricValues[0].value) || 0;
+    const pct   = total ? ((users / total) * 100).toFixed(1) : '0.0';
+    const isBay = bayArea.has(city);
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="rank">${i + 1}</td>
+      <td style="color:${isBay ? 'var(--gold)' : 'var(--cream-muted)'}">${city}${isBay ? ' <span style="font-size:0.65rem;opacity:0.6">Bay Area</span>' : ''}</td>
+      <td class="num">${fmt(users)}</td>
+      <td class="num" style="color:var(--cream-muted);font-size:0.8rem">${pct}%</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+/* ============================================================
+   7. ENGAGEMENT QUALITY
+============================================================ */
+async function loadEngagement() {
+  const [startDate, endDate] = dateRange(activeDays);
+
+  const data = await fetchGA4({
+    dateRanges: [{ startDate, endDate }],
+    metrics: [
+      { name: 'engagementRate' },
+      { name: 'bounceRate' },
+      { name: 'averageSessionDuration' },
+    ],
+    dimensions: [{ name: 'date' }],
+    orderBys: [{ dimension: { dimensionName: 'date' } }],
+  });
+
+  const rows = data.rows || [];
+
+  /* Compute period averages */
+  let sumEng = 0, sumBnc = 0;
+  const labels  = [];
+  const engData = [];
+
+  rows.forEach(row => {
+    const dateStr = row.dimensionValues[0].value;
+    const label   = `${dateStr.slice(4,6)}/${dateStr.slice(6,8)}`;
+    const eng     = parseFloat(row.metricValues[0].value) || 0;
+    const bnc     = parseFloat(row.metricValues[1].value) || 0;
+
+    labels.push(label);
+    engData.push((eng * 100).toFixed(1));
+    sumEng += eng;
+    sumBnc += bnc;
+  });
+
+  const avgEng = rows.length ? sumEng / rows.length : 0;
+  const avgBnc = rows.length ? sumBnc / rows.length : 0;
+
+  document.getElementById('kpi-eng-rate').textContent = (avgEng * 100).toFixed(1) + '%';
+  document.getElementById('kpi-bounce').textContent   = (avgBnc * 100).toFixed(1) + '%';
+
+  /* Engagement trend chart */
+  destroyChart('chart-engagement');
+  const ctx = document.getElementById('chart-engagement').getContext('2d');
+  charts['chart-engagement'] = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Engagement Rate %',
+        data: engData,
+        borderColor: '#27ae60',
+        backgroundColor: 'rgba(39,174,96,0.1)',
+        borderWidth: 2,
+        pointRadius: engData.length > 30 ? 2 : 4,
+        pointBackgroundColor: '#27ae60',
+        tension: 0.35,
+        fill: true,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` Engagement Rate: ${ctx.raw}%` } }
+      },
+      scales: {
+        x: {
+          ticks: { maxTicksLimit: 8, font: { size: 11 } },
+          grid: { color: 'rgba(255,255,255,0.04)' }
+        },
+        y: {
+          min: 0, max: 100,
+          ticks: {
+            font: { size: 11 },
+            callback: v => v + '%'
+          },
+          grid: { color: 'rgba(255,255,255,0.04)' }
+        }
+      }
+    }
+  });
+}
+</script>
+
+</body>
+</html>
