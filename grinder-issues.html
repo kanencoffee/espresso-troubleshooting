@@ -29,7 +29,28 @@
     <!-- AI & Robots -->
     <meta name="robots" content="max-snippet:-1, max-image-preview:large">
 
-    <!-- Analytics -->
+    <!-- Consent Mode Defaults (must run before any tracking) -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'wait_for_update': 500
+      });
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-WFP77FBF');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Analytics (GA4 fallback) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZH5VRNVL50"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -330,6 +351,11 @@
     </style>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WFP77FBF"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <nav>
         <a href="https://www.kanencoffee.com">Home</a>
         <a href="https://www.kanencoffee.com/espresso-machine-repairs">Repairs</a>
