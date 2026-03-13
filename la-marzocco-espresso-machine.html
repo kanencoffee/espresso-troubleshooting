@@ -130,6 +130,9 @@
         @media (max-width: 968px) { .container { grid-template-columns: 1fr; } .sidebar { position: static; } }
 
     </style>
+  <!-- Security headers (meta equivalents) -->
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://region1.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com; frame-src https://www.googletagmanager.com; object-src 'none'; base-uri 'self';">
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
