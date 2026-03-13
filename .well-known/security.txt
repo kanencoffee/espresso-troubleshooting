@@ -1,0 +1,4 @@
+Contact: mailto:service@kanencoffee.com
+Expires: 2027-03-12T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://help.kanencoffee.com/.well-known/security.txt
