@@ -618,6 +618,48 @@
         font-size: 2em;
       }
     }
+
+    /* Search bar */
+    .search-wrapper {
+      margin: 24px auto 0;
+      max-width: 560px;
+      position: relative;
+    }
+    .search-wrapper input[type="search"] {
+      width: 100%;
+      padding: 12px 44px 12px 16px;
+      font-size: 1em;
+      border: 2px solid rgba(255,255,255,0.25);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .search-wrapper input[type="search"]::placeholder { color: rgba(255,255,255,0.6); }
+    .search-wrapper input[type="search"]:focus {
+      border-color: #c84b31;
+      background: rgba(255,255,255,0.2);
+    }
+    .search-wrapper input[type="search"]::-webkit-search-cancel-button { cursor: pointer; }
+    .search-icon {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1em;
+      pointer-events: none;
+    }
+    .search-count {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 0.88em;
+      color: rgba(255,255,255,0.7);
+      min-height: 1.2em;
+    }
+    .faq-item { scroll-margin-top: 70px; }
+    a[id].anchor-tag { display: block; height: 0; overflow: hidden; scroll-margin-top: 70px; }
   </style>
   <!-- Security headers (meta equivalents) -->
   <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -642,6 +684,11 @@
   <header>
     <h1>Espresso Machine Troubleshooting Guide</h1>
     <p class="header-subtitle">Expert solutions from Kanen Coffee — Berkeley's espresso machine repair specialists since 2011</p>
+    <div class="search-wrapper">
+      <input type="search" id="issue-search" placeholder="Search issues… e.g. steam, leak, grinder" autocomplete="off" aria-label="Search troubleshooting issues">
+      <span class="search-icon" aria-hidden="true">🔍</span>
+    </div>
+    <p class="search-count" id="search-count" aria-live="polite"></p>
   </header>
 
   <!-- Quick Navigation Section -->
@@ -736,6 +783,7 @@
   <div class="content-wrapper">
     <!-- Main FAQ Content -->
     <section class="faq-section" id="faq">
+      <a id="group-no-flow" class="anchor-tag" aria-hidden="true"></a>
       <div class="faq-item" id="q1">
         <h2>1. Why is my espresso machine not pumping water?</h2>
         <div class="faq-answer">
@@ -750,6 +798,7 @@
         </div>
       </div>
 
+      <a id="pump-low-pressure" class="anchor-tag" aria-hidden="true"></a>
       <div class="faq-item" id="q2">
         <h2>2. Why is my espresso coming out too slowly?</h2>
         <div class="faq-answer">
@@ -778,6 +827,8 @@
         </div>
       </div>
 
+      <a id="seals-internal-leak" class="anchor-tag" aria-hidden="true"></a>
+      <a id="group-portafilter-leak" class="anchor-tag" aria-hidden="true"></a>
       <div class="faq-item" id="q4">
         <h2>4. Why is my espresso machine leaking water?</h2>
         <div class="faq-answer">
@@ -792,6 +843,8 @@
         </div>
       </div>
 
+      <a id="boiler-temp" class="anchor-tag" aria-hidden="true"></a>
+      <a id="electronics-heating-element" class="anchor-tag" aria-hidden="true"></a>
       <div class="faq-item" id="q5">
         <h2>5. Why is my espresso machine not heating up?</h2>
         <div class="faq-answer">
@@ -806,6 +859,7 @@
         </div>
       </div>
 
+      <a id="steam-none" class="anchor-tag" aria-hidden="true"></a>
       <div class="faq-item" id="q6">
         <h2>6. Why is my steam wand not working?</h2>
         <div class="faq-answer">
@@ -820,6 +874,7 @@
         </div>
       </div>
 
+      <a id="boiler-scale" class="anchor-tag" aria-hidden="true"></a>
       <div class="faq-item" id="q7">
         <h2>7. How do I descale my espresso machine?</h2>
         <div class="faq-answer">
@@ -864,6 +919,7 @@
         </div>
       </div>
 
+      <a id="grinder-motor" class="anchor-tag" aria-hidden="true"></a>
       <div class="faq-item" id="q10">
         <h2>10. My grinder runs but no coffee comes out.</h2>
         <div class="faq-answer">
@@ -892,6 +948,7 @@
         </div>
       </div>
 
+      <a id="pump-noise" class="anchor-tag" aria-hidden="true"></a>
       <div class="faq-item" id="q12">
         <h2>12. Why is my espresso machine making loud noises?</h2>
         <div class="faq-answer">
@@ -906,6 +963,8 @@
         </div>
       </div>
 
+      <a id="boiler-opv" class="anchor-tag" aria-hidden="true"></a>
+      <a id="electronics-pressurestat" class="anchor-tag" aria-hidden="true"></a>
       <div class="faq-item" id="q13">
         <h2>13. My pressure gauge shows incorrect readings.</h2>
         <div class="faq-answer">
@@ -920,6 +979,8 @@
         </div>
       </div>
 
+      <a id="solenoid-failure" class="anchor-tag" aria-hidden="true"></a>
+      <a id="water-flowmeter" class="anchor-tag" aria-hidden="true"></a>
       <div class="faq-item" id="q14">
         <h2>14. Machine keeps running and overfills shots.</h2>
         <div class="faq-answer">
@@ -934,6 +995,7 @@
         </div>
       </div>
 
+      <a id="electronics-pcb" class="anchor-tag" aria-hidden="true"></a>
       <div class="faq-item" id="q15">
         <h2>15. Display shows error codes.</h2>
         <div class="faq-answer">
@@ -948,6 +1010,7 @@
         </div>
       </div>
 
+      <a id="electronics-ssr" class="anchor-tag" aria-hidden="true"></a>
       <div class="faq-item" id="q16">
         <h2>16. Machine gets too hot or overheats.</h2>
         <div class="faq-answer">
@@ -1198,5 +1261,41 @@
       <a href="https://help.kanencoffee.com/sitemap.xml">Sitemap</a>
     </p>
   </footer>
+  <script>
+    (function () {
+      var input = document.getElementById('issue-search');
+      var countEl = document.getElementById('search-count');
+      if (!input) return;
+
+      var items = Array.from(document.querySelectorAll('.faq-item'));
+      var total = items.length;
+
+      input.addEventListener('input', function () {
+        var q = input.value.trim().toLowerCase();
+        var visible = 0;
+
+        items.forEach(function (item) {
+          var text = item.textContent.toLowerCase();
+          var match = !q || text.indexOf(q) !== -1;
+          item.style.display = match ? '' : 'none';
+          if (match) visible++;
+        });
+
+        countEl.textContent = q
+          ? 'Showing ' + visible + ' of ' + total + ' issues'
+          : '';
+
+        // GA4 search tracking — fires after 800ms of no typing
+        clearTimeout(input._searchTimer);
+        if (q.length >= 3) {
+          input._searchTimer = setTimeout(function () {
+            if (typeof gtag === 'function') {
+              gtag('event', 'search', { search_term: q });
+            }
+          }, 800);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
