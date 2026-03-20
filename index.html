@@ -250,7 +250,7 @@
       "name": "Why does my coffee have a metallic or strange taste?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "This can be caused by a new machine needing seasoning, scale buildup, or water quality issues. Run 10-20 shots through a new machine, descale quarterly and backflush regularly, use soft water (not distilled or hard water), and replace the water filter if equipped."
+        "text": "This is usually stale or over-chlorinated water, scale flaking into the brew path, or a new machine that still needs seasoning. Run 10-20 blank shots, descale quarterly, switch to filtered water with 50-150 ppm minerals (not zero-mineral distilled), replace the in-tank filter every 2 months, and rinse/dry the reservoir weekly."
       }
     },
     {
@@ -259,6 +259,46 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Consider repair if the machine is under 5 years old, repair cost is under 50% of replacement, it's a quality brand (Lelit, Breville, Rancilio, La Marzocco, Jura), or it only needs gaskets, seals, or descaling. Consider replacement if over 10 years old with major issues, multiple components are failing, repair exceeds 60% of new machine cost, or parts are discontinued."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do my espresso shots channel or pour unevenly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Uneven puck prep, clumps, or a worn gasket let water favor one side. Distribute grounds with a WDT tool, tamp level with ~30 lbs of pressure, ensure the machine sits level, clean the shower screen, and replace the group gasket yearly so pressure stays even across the basket."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why isn’t my pre-infusion working properly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pre-infusion stops when the setting is disabled, the tank isn’t seated, or the flow meter is scaled. Re-enable it in the menu, purge air by running blank shots, descale the group solenoid/flow meter, and if the machine errors out after a few seconds the pump capacitor likely needs service."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is my group head sputtering or spraying water?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A clogged shower screen, scale behind it, or a flattened gasket causes spray. Backflush with Cafiza, soak and scrub the screen, inspect the dispersion plate, and install a fresh gasket so the portafilter seals evenly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is my brew pressure below 8 bar or above 10 bar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "OPV drift, scale, or bad puck prep knocks pressure out of range. Test with a blind basket, adjust or replace the OPV, descale the brew path, and verify your grind/dose so the pump isn’t fighting a clogged puck. Rotary pumps that hunt wildly likely need new vanes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I fix a grinder jam when the motor only hums?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Unplug the grinder, pull the hopper, vacuum out beans, and fish out stones or screws. Remove the upper burr carrier, brush burrs clean, clear the chute, then reinstall and dial coarser before pulsing back to life. If it stays stuck the capacitor or burr carrier needs professional service."
       }
     }
   ]
@@ -722,7 +762,18 @@
           <li><a href="#q8">Espresso tastes bitter</a></li>
           <li><a href="#q9">Espresso tastes sour</a></li>
           <li><a href="#q11">No crema on espresso</a></li>
-          <li><a href="#q19">Metallic taste in coffee</a></li>
+          <li><a href="#q19">Metallic / off flavors</a></li>
+          <li><a href="#water-quality">Water quality issues</a></li>
+        </ul>
+      </div>
+
+      <div class="nav-category">
+        <h3>🎯 Shot Consistency</h3>
+        <ul>
+          <li><a href="#q21">Uneven flow / channeling</a></li>
+          <li><a href="#q22">Pre-infusion not working</a></li>
+          <li><a href="#q23">Group head sputtering</a></li>
+          <li><a href="#q24">Brew pressure too low/high</a></li>
         </ul>
       </div>
       
@@ -730,6 +781,7 @@
         <h3>⚙️ Grinder Issues</h3>
         <ul>
           <li><a href="#q10">Grinder runs but no output</a></li>
+          <li><a href="#q25">Grinder jam / motor hums</a></li>
           <li><a href="#grinder-section">Common grinder problems</a></li>
           <li><a href="#grinder-section">Burr maintenance</a></li>
           <li><a href="#grinder-section">Grinder troubleshooting</a></li>
@@ -1053,16 +1105,18 @@
         </div>
       </div>
 
+      <a id="water-quality" class="anchor-tag" aria-hidden="true"></a>
       <div class="faq-item" id="q19">
         <h2>19. Coffee has metallic or strange taste.</h2>
         <div class="faq-answer">
-          <div class="causes-list"><strong>Causes:</strong> New machine needs seasoning, scale buildup, or water quality issues.</div>
+          <div class="causes-list"><strong>Causes:</strong> New machine needs seasoning, stale water sitting in the tank, chlorine-heavy tap water, or scale leaching into the brew path.</div>
           <div class="solution-list">
             <strong>Solution:</strong><br>
-            • Run 10-20 shots through new machine<br>
-            • Descale quarterly and backflush regularly<br>
-            • Use soft water (not distilled or hard water)<br>
-            • Replace water filter if equipped
+            • Run 10-20 blank shots through a new machine to season the brass and stainless parts<br>
+            • Descale quarterly and backflush regularly to keep minerals from flaking into the cup<br>
+            • Use filtered water with 50-150 ppm TDS (not zero-mineral distilled or super-hard tap water)<br>
+            • Swap the in-tank filter every 2 months and flush 2-3 tanks of fresh water afterward<br>
+            • Clean and dry the reservoir weekly so biofilm doesn&#39;t add funky flavors
           </div>
         </div>
       </div>
@@ -1085,6 +1139,86 @@
             
             <strong>We sell:</strong> Lelit, Breville, Rancilio, Eureka, Baratza & more quality brands<br>
             <strong>Not sure if we fix your machine?</strong> <a href="https://www.kanencoffee.com/espresso-machine-repairs" style="color: #c84b31; text-decoration: underline;">See our complete repair list</a>
+          </div>
+        </div>
+      </div>
+
+
+      <a id="shots-channeling" class="anchor-tag" aria-hidden="true"></a>
+      <div class="faq-item" id="q21">
+        <h2>21. Espresso shot channels or pours unevenly.</h2>
+        <div class="faq-answer">
+          <div class="causes-list"><strong>Causes:</strong> Uneven puck prep, clumps in the basket, basket not level, or gasket wear letting water sneak down one side.</div>
+          <div class="solution-list">
+            <strong>Solution:</strong><br>
+            • Use a WDT/distribution tool (a paperclip works) to break up clumps before tamping<br>
+            • Tap the portafilter to settle grounds, then tamp level with ~30 lbs of pressure<br>
+            • Check that the machine is on level footing and the portafilter gasket isn&#39;t flattened<br>
+            • Run a blank shot and watch flow—if it still jets sideways, the shower screen likely needs cleaning<br>
+            • Consider adding pre-infusion (if available) to saturate the puck before full pressure
+          </div>
+        </div>
+      </div>
+
+      <a id="preinfusion" class="anchor-tag" aria-hidden="true"></a>
+      <div class="faq-item" id="q22">
+        <h2>22. Pre-infusion doesn&#39;t start or stops too quickly.</h2>
+        <div class="faq-answer">
+          <div class="causes-list"><strong>Causes:</strong> Pre-infusion disabled in the menu, low water level, pump not primed, or a scaled flow meter/solenoid.</div>
+          <div class="solution-list">
+            <strong>Solution:</strong><br>
+            • Confirm pre-infusion settings—on Breville/Lelit/Jura you can set duration in the menu or app<br>
+            • Re-seat the water tank and purge air by running 2-3 blank shots<br>
+            • Descale to clear the flow meter and group solenoid so they sense water movement again<br>
+            • If the machine logs errors after a few seconds, the pump capacitor may be weak—book service
+          </div>
+        </div>
+      </div>
+
+      <a id="group-sputter" class="anchor-tag" aria-hidden="true"></a>
+      <div class="faq-item" id="q23">
+        <h2>23. Group head sputters or sprays water everywhere.</h2>
+        <div class="faq-answer">
+          <div class="causes-list"><strong>Causes:</strong> Clogged shower screen, scale behind the screen, warped dispersion plate, or a gasket that isn&#39;t sealing.</div>
+          <div class="solution-list">
+            <strong>Solution:</strong><br>
+            • Backflush with Cafiza (if your machine supports backflushing) to clear coffee oils<br>
+            • Remove the shower screen and soak it in hot water + espresso cleaner, brush both sides<br>
+            • Inspect the dispersion screw/plate and replace if pitted<br>
+            • Install a fresh group gasket every 12 months so the portafilter seals evenly
+          </div>
+        </div>
+      </div>
+
+      <a id="brew-pressure" class="anchor-tag" aria-hidden="true"></a>
+      <div class="faq-item" id="q24">
+        <h2>24. Brew pressure is stuck below 8 bar or spikes above 10.</h2>
+        <div class="faq-answer">
+          <div class="causes-list"><strong>Causes:</strong> Mis-adjusted OPV (over-pressure valve), failing vibration pump, clogged puck, or heavy scale restricting flow.</div>
+          <div class="solution-list">
+            <strong>Solution:</strong><br>
+            • Test with a blind basket—if pressure is still low, the pump or OPV needs adjustment<br>
+            • Clean/descale the OPV and flow path; a stuck spring will cause runaway pressure<br>
+            • Dial in grind and dose: too fine or overdosed baskets drive pressure sky-high<br>
+            • If a rotary pump machine hunts between 6-10 bar, the pump vanes are likely worn (service visit)
+          </div>
+        </div>
+      </div>
+
+      <a id="grinder-jam" class="anchor-tag" aria-hidden="true"></a>
+      <div class="faq-item" id="q25">
+        <h2>25. My grinder is jammed and the motor just hums.</h2>
+        <div class="faq-answer">
+          <div class="causes-list"><strong>Causes:</strong> Bean fragments wedged between burrs, foreign objects (stones, screws), oily beans compacted in the chute, or mis-seated burr carrier.</div>
+          <div class="solution-list">
+            <strong>Solution:</strong><br>
+            • Cut power immediately, remove the hopper, and scoop/vacuum out beans above the burrs<br>
+            • Inspect the burr chamber for stones or screws and pull them with tweezers<br>
+            • Remove the upper burr carrier, scrub both burrs, and clear the chute with a brush or compressed air<br>
+            • Reinstall the carrier, dial all the way coarser, and pulse the grinder while lightly tapping the case<br>
+            • Once it spins freely, dial back to your setting and purge a small dose to confirm smooth feed
+            <br><br>
+            <em>Still jammed? The motor capacitor or burr carrier may be damaged—schedule service so we can rebuild it.</em>
           </div>
         </div>
       </div>
@@ -1125,7 +1259,12 @@
               • Add 1-2 drops of water to beans (RDT method)<br>
               • Use anti-static spray on catch bin<br>
               • Check humidity levels (40-60% ideal)<br>
-              • Clean chute and exit point regularly
+              • Clean chute and exit point regularly<br><br>
+              <strong>6. Grinder jam (motor hums but burrs won&#39;t spin):</strong><br>
+              • Unplug immediately and remove the hopper<br>
+              • Vacuum/scoop out beans above the burrs and look for stones or screws<br>
+              • Remove the upper burr carrier, brush burrs and chute clean, then reinstall<br>
+              • Dial all the way coarser and pulse while gently tapping the case to free the burrs
             </div>
           </div>
         </div>
