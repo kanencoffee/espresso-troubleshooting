@@ -483,8 +483,10 @@
     }
     
     .nav-category a {
-      color: #555;
-      text-decoration: none;
+      color: #444;
+      text-decoration: underline;
+      text-decoration-color: #ddd;
+      text-underline-offset: 2px;
       font-size: 0.95em;
     }
     
@@ -543,8 +545,9 @@
       margin-bottom: 15px;
     }
     
-    .faq-answer { 
-      padding-left: 15px; 
+    .faq-answer {
+      padding-left: 15px;
+      color: #2a2a2a;
     }
     
     .solution-list, .causes-list { 
@@ -589,10 +592,15 @@
     }
     
     .sidebar-section li:before {
-      content: "→";
+      content: "\2192";
       position: absolute;
       left: 0;
       color: #c84b31;
+    }
+
+    .sidebar-section li,
+    .sidebar-section p {
+      color: #2a2a2a;
     }
     
     .cta-box {
@@ -665,6 +673,193 @@
       }
     }
 
+    /* Hamburger menu */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.6em;
+      cursor: pointer;
+      padding: 5px 10px;
+      line-height: 1;
+    }
+
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: #000;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      padding: 10px 0;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 99;
+    }
+
+    .mobile-menu.open {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      font-weight: 500;
+      border-bottom: 1px solid #222;
+    }
+
+    .mobile-menu a:hover {
+      background: #1a1a1a;
+      color: #c84b31;
+    }
+
+    /* FAQ accordion */
+    .faq-item h2 {
+      cursor: pointer;
+      position: relative;
+      padding-right: 30px;
+    }
+
+    .faq-item h2::after {
+      content: "\25BE";
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.2em;
+      transition: transform 0.2s;
+      color: #999;
+    }
+
+    .faq-item.expanded h2::after {
+      transform: translateY(-50%) rotate(180deg);
+    }
+
+    .faq-item h2:hover {
+      color: #a03820;
+    }
+
+    .faq-item .faq-answer {
+      display: none;
+    }
+
+    .faq-item.expanded .faq-answer {
+      display: block;
+    }
+
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #c84b31;
+      color: white;
+      border: none;
+      font-size: 1.3em;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      z-index: 90;
+      transition: opacity 0.2s;
+    }
+
+    .back-to-top:hover {
+      background: #a03820;
+    }
+
+    .back-to-top.visible {
+      display: flex;
+    }
+
+    /* Sticky mobile CTA bar */
+    .mobile-cta-bar {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      z-index: 95;
+      padding: 8px 10px;
+    }
+
+    .mobile-cta-bar .cta-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .mobile-cta-bar .cta-btn {
+      flex: 1;
+      text-align: center;
+      padding: 12px 10px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95em;
+    }
+
+    .mobile-cta-bar .cta-btn-call {
+      background: #c84b31;
+      color: white;
+    }
+
+    .mobile-cta-bar .cta-btn-book {
+      background: #000;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .mobile-cta-bar {
+        display: block;
+      }
+
+      .back-to-top {
+        bottom: 80px;
+      }
+
+      footer {
+        padding-bottom: 70px;
+      }
+    }
+
+    /* Fix 10: Small phone breakpoint */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5em;
+      }
+
+      header {
+        padding: 30px 15px;
+      }
+
+      .faq-item h2 {
+        font-size: 1.1em;
+      }
+    }
+
     /* Search bar */
     .search-wrapper {
       margin: 24px auto 0;
@@ -719,12 +914,25 @@
   <!-- End Google Tag Manager (noscript) -->
 
   <nav>
-    <a href="https://www.kanencoffee.com">Home</a>
-    <a href="https://www.kanencoffee.com/espresso-machine-repairs">Repairs</a>
-    <a href="https://shop.kanencoffee.com">Store</a>
-    <a href="https://help.kanencoffee.com">Troubleshooting</a>
-    <a href="https://www.kanencoffee.com/book-appointment" style="background: #c84b31; padding: 8px 15px; border-radius: 5px;">Book Appointment</a>
-    <a href="https://www.kanencoffee.com/contact-us">Contact</a>
+    <span class="nav-links">
+      <a href="https://www.kanencoffee.com" target="_blank" rel="noopener noreferrer">Home</a>
+      <a href="https://www.kanencoffee.com/espresso-machine-repairs" target="_blank" rel="noopener noreferrer">Repairs</a>
+      <a href="https://shop.kanencoffee.com" target="_blank" rel="noopener noreferrer">Store</a>
+      <a href="https://help.kanencoffee.com">Troubleshooting</a>
+      <a href="https://www.youtube.com/@kanencoffee" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.kanencoffee.com/book-appointment" target="_blank" rel="noopener noreferrer" style="background: #c84b31; padding: 8px 15px; border-radius: 5px;">Book Appointment</a>
+      <a href="https://www.kanencoffee.com/contact-us" target="_blank" rel="noopener noreferrer">Contact</a>
+    </span>
+    <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="https://www.kanencoffee.com" target="_blank" rel="noopener noreferrer">Home</a>
+      <a href="https://www.kanencoffee.com/espresso-machine-repairs" target="_blank" rel="noopener noreferrer">Repairs</a>
+      <a href="https://shop.kanencoffee.com" target="_blank" rel="noopener noreferrer">Store</a>
+      <a href="https://help.kanencoffee.com">Troubleshooting</a>
+      <a href="https://www.youtube.com/@kanencoffee" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.kanencoffee.com/book-appointment" target="_blank" rel="noopener noreferrer">Book Appointment</a>
+      <a href="https://www.kanencoffee.com/contact-us" target="_blank" rel="noopener noreferrer">Contact</a>
+    </div>
   </nav>
 
   <header>
@@ -1565,6 +1773,81 @@
       <a href="https://help.kanencoffee.com/sitemap.xml">Sitemap</a>
     </p>
   </footer>
+  <!-- Mobile CTA bar -->
+  <div class="mobile-cta-bar">
+    <div class="cta-buttons">
+      <a href="tel:5108594425" class="cta-btn cta-btn-call">Call Us</a>
+      <a href="https://www.kanencoffee.com/pages/book-appointment" class="cta-btn cta-btn-book">Book a Repair</a>
+    </div>
+  </div>
+
+  <!-- Back to top button -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top">&uarr;</button>
+
   <script src="/search.js"></script>
+  <script>
+    /* Hamburger toggle */
+    (function() {
+      var btn = document.querySelector('.hamburger');
+      var menu = document.getElementById('mobile-menu');
+      if (btn && menu) {
+        btn.addEventListener('click', function() {
+          var open = menu.classList.toggle('open');
+          btn.setAttribute('aria-expanded', open);
+        });
+      }
+    })();
+
+    /* FAQ accordion */
+    (function() {
+      var items = document.querySelectorAll('.faq-item');
+      items.forEach(function(item) {
+        var h2 = item.querySelector('h2');
+        if (!h2) return;
+        h2.addEventListener('click', function() {
+          item.classList.toggle('expanded');
+        });
+      });
+
+      /* Auto-expand from URL hash */
+      function expandFromHash() {
+        var hash = window.location.hash.replace('#', '');
+        if (!hash) return;
+        var target = document.getElementById(hash);
+        if (target) {
+          var faqItem = target.closest('.faq-item') || target;
+          if (faqItem.classList.contains('faq-item')) {
+            faqItem.classList.add('expanded');
+          }
+          /* Also check if target is an anchor-tag before a faq-item */
+          var next = target.nextElementSibling;
+          while (next && !next.classList.contains('faq-item')) {
+            next = next.nextElementSibling;
+          }
+          if (next && next.classList.contains('faq-item')) {
+            next.classList.add('expanded');
+          }
+        }
+      }
+      expandFromHash();
+      window.addEventListener('hashchange', expandFromHash);
+    })();
+
+    /* Back to top */
+    (function() {
+      var btn = document.getElementById('back-to-top');
+      if (!btn) return;
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 600) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      });
+      btn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
 </body>
 </html>
