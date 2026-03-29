@@ -306,6 +306,86 @@
         "@type": "Answer",
         "text": "Unplug the grinder, pull the hopper, vacuum out beans, and fish out stones or screws. Remove the upper burr carrier, brush burrs clean, clear the chute, then reinstall and dial coarser before pulsing back to life. If it stays stuck the capacitor or burr carrier needs professional service."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "What are common grinder problems and solutions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Check for foreign objects jamming burrs, inspect the burr carrier for cracks, clean the clogged chute with a brush, and replace worn burrs when edges are rounded (every 300-500 lbs of coffee)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the recommended grinder maintenance schedule?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Daily: empty and wipe hopper, brush out grounds. Weekly: deep clean with grinder cleaning tablets. Monthly: remove upper burr and clean both burrs. Annually: professional service and calibration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pump runs but no water comes out — how to purge an air lock on a super-automatic?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fill the water tank completely and reseat it firmly. Activate the steam or hot water function for 10-15 seconds to draw water through a different path and break the air lock."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I fix a brew unit that is stuck, jammed, or won't eject the puck?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Open the side door, pull out the brew unit, rinse under warm running water, air dry 30 minutes, then apply food-grade silicone grease to the sliding rails."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is my super-automatic coffee watery, weak, or has no crema?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Increase coffee strength to maximum in the machine menu, adjust grind one step finer while the grinder is running, and run 2-3 brews after adjusting to flush old grounds before evaluating."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "My machine is stuck in a descaling loop or won't finish descaling. What do I do?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the correct descaler for your brand, restart and look for a Resume or Restart Descaling option in the menu, and run a second full descaling cycle for heavily scaled machines."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is my milk system not frothing, blocked, or producing watery foam?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fully disassemble the milk carafe or LatteGo unit and soak all parts in warm water with a dishwasher tablet or Rinza milk cleaner for 30 minutes, then run the manual milk cleaning cycle."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why are coffee grounds appearing in my cup from a super-automatic?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Remove the brew unit and hold the filter screen up to a light to look for holes, tears, or crushed mesh. Inspect the O-rings — they should be soft and round, not cracked or flattened."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "My super-automatic shows an error code or refuses to brew. What should I check?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most error codes are maintenance reminders or triggered sensors. Remove and reseat the water tank, push the drip tray fully in, empty the grounds container, and unplug for 30 seconds then power on."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does my super-automatic dispense lukewarm coffee?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Set coffee temperature to maximum in the machine menu, preheat the cup with hot water, and run a full descaling cycle since heavy thermoblock scale is the most common cause of temperature loss."
+      }
     }
   ]
 }
@@ -1804,8 +1884,23 @@
       items.forEach(function(item) {
         var h2 = item.querySelector('h2');
         if (!h2) return;
+        /* ARIA attributes on page load */
+        h2.setAttribute('role', 'button');
+        h2.setAttribute('tabindex', '0');
+        h2.setAttribute('aria-expanded', 'false');
         h2.addEventListener('click', function() {
           item.classList.toggle('expanded');
+          var isExpanded = item.classList.contains('expanded');
+          h2.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+        });
+        /* Keyboard support: Enter and Space toggle */
+        h2.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            item.classList.toggle('expanded');
+            var isExpanded = item.classList.contains('expanded');
+            h2.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+          }
         });
       });
 
@@ -1818,6 +1913,8 @@
           var faqItem = target.closest('.faq-item') || target;
           if (faqItem.classList.contains('faq-item')) {
             faqItem.classList.add('expanded');
+            var h2 = faqItem.querySelector('h2');
+            if (h2) h2.setAttribute('aria-expanded', 'true');
           }
           /* Also check if target is an anchor-tag before a faq-item */
           var next = target.nextElementSibling;
@@ -1826,6 +1923,8 @@
           }
           if (next && next.classList.contains('faq-item')) {
             next.classList.add('expanded');
+            var h2n = next.querySelector('h2');
+            if (h2n) h2n.setAttribute('aria-expanded', 'true');
           }
         }
       }
