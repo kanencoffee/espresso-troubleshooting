@@ -925,8 +925,12 @@
       }
     }
 
-    /* Fix 10: Small phone breakpoint */
+    /* Small phone breakpoint */
     @media (max-width: 480px) {
+      body {
+        font-size: 17px;
+      }
+
       h1 {
         font-size: 1.5em;
       }
@@ -938,6 +942,68 @@
       .faq-item h2 {
         font-size: 1.1em;
       }
+    }
+
+    /* Category filter bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .filter-btn {
+      padding: 7px 14px;
+      border: 1.5px solid #e0d8d2;
+      border-radius: 20px;
+      background: #f9f6f3;
+      color: #555;
+      font-size: 0.88em;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      font-family: inherit;
+      white-space: nowrap;
+      line-height: 1.4;
+    }
+
+    .filter-btn:hover {
+      background: #f5ede8;
+      border-color: #c84b31;
+      color: #c84b31;
+    }
+
+    .filter-btn.active {
+      background: #c84b31;
+      border-color: #c84b31;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .faq-item.hidden {
+      display: none;
+    }
+
+    /* Booking CTA inside answers */
+    .faq-cta {
+      margin-top: 14px;
+      padding: 11px 14px;
+      background: #fff8f6;
+      border: 1px solid #f0d0c8;
+      border-radius: 6px;
+      font-size: 0.92em;
+      color: #594d42;
+    }
+
+    .faq-cta a {
+      color: #c84b31;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .faq-cta a:hover {
+      text-decoration: underline;
     }
 
     /* Search bar */
@@ -1129,8 +1195,19 @@
   <div class="content-wrapper">
     <!-- Main FAQ Content -->
     <section class="faq-section" id="faq">
+      <div class="filter-bar" id="faq-filter-bar" role="group" aria-label="Filter issues by category">
+        <button class="filter-btn active" data-filter="all">All Issues</button>
+        <button class="filter-btn" data-filter="water-flow">⚡ Water &amp; Flow</button>
+        <button class="filter-btn" data-filter="temperature">🔥 Temperature &amp; Steam</button>
+        <button class="filter-btn" data-filter="taste">☕ Taste &amp; Quality</button>
+        <button class="filter-btn" data-filter="shot-consistency">🎯 Shot Consistency</button>
+        <button class="filter-btn" data-filter="grinder">⚙️ Grinder</button>
+        <button class="filter-btn" data-filter="maintenance">🔧 Maintenance</button>
+        <button class="filter-btn" data-filter="super-auto">🤖 Super-Automatic</button>
+      </div>
+
       <a id="group-no-flow" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q1">
+      <div class="faq-item" id="q1" data-category="water-flow">
         <h2>1. Why is my espresso machine not pumping water?</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Common causes:</strong> Empty water tank, clogged intake filter, air lock in system, or faulty pump motor.</div>
@@ -1145,7 +1222,7 @@
       </div>
 
       <a id="pump-low-pressure" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q2">
+      <div class="faq-item" id="q2" data-category="water-flow">
         <h2>2. Why is my espresso coming out too slowly?</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Too fine grind, overfilled basket, excessive tamping pressure, or clogged shower screen.</div>
@@ -1159,7 +1236,7 @@
         </div>
       </div>
 
-      <div class="faq-item" id="q3">
+      <div class="faq-item" id="q3" data-category="water-flow">
         <h2>3. Why is my espresso weak or watery?</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Too coarse grind, stale beans, under-dosing, or insufficient tamping.</div>
@@ -1175,7 +1252,7 @@
 
       <a id="seals-internal-leak" class="anchor-tag" aria-hidden="true"></a>
       <a id="group-portafilter-leak" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q4">
+      <div class="faq-item" id="q4" data-category="water-flow">
         <h2>4. Why is my espresso machine leaking water?</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Worn group head gasket, cracked water tank, loose connections, or damaged internal tubing.</div>
@@ -1191,7 +1268,7 @@
 
       <a id="boiler-temp" class="anchor-tag" aria-hidden="true"></a>
       <a id="electronics-heating-element" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q5">
+      <div class="faq-item" id="q5" data-category="temperature">
         <h2>5. Why is my espresso machine not heating up?</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Tripped thermal fuse, faulty thermostat, broken heating element, or heavy scale buildup.</div>
@@ -1206,7 +1283,7 @@
       </div>
 
       <a id="steam-none" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q6">
+      <div class="faq-item" id="q6" data-category="temperature">
         <h2>6. Why is my steam wand not working?</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Clogged steam tip, milk residue blockage, or insufficient boiler pressure.</div>
@@ -1221,7 +1298,7 @@
       </div>
 
       <a id="boiler-scale" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q7">
+      <div class="faq-item" id="q7" data-category="maintenance">
         <h2>7. How do I descale my espresso machine?</h2>
         <div class="faq-answer">
           <div class="solution-list">
@@ -1237,7 +1314,7 @@
         </div>
       </div>
 
-      <div class="faq-item" id="q8">
+      <div class="faq-item" id="q8" data-category="taste">
         <h2>8. Why does my espresso taste bitter?</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Over-extraction, water too hot, dark roast beans, or dirty equipment.</div>
@@ -1251,7 +1328,7 @@
         </div>
       </div>
 
-      <div class="faq-item" id="q9">
+      <div class="faq-item" id="q9" data-category="taste">
         <h2>9. Why does my espresso taste sour?</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Under-extraction, water too cool, light roast beans, or channeling.</div>
@@ -1266,7 +1343,7 @@
       </div>
 
       <a id="grinder-motor" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q10">
+      <div class="faq-item" id="q10" data-category="grinder">
         <h2>10. My grinder runs but no coffee comes out.</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Burr jam from foreign object, broken burr carrier, worn burrs, or clogged chute.</div>
@@ -1280,7 +1357,7 @@
         </div>
       </div>
 
-      <div class="faq-item" id="q11">
+      <div class="faq-item" id="q11" data-category="taste">
         <h2>11. Why is there no crema on my espresso?</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Stale beans, incorrect grind, low pressure, or using pre-ground coffee.</div>
@@ -1295,7 +1372,7 @@
       </div>
 
       <a id="pump-noise" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q12">
+      <div class="faq-item" id="q12" data-category="maintenance">
         <h2>12. Why is my espresso machine making loud noises?</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Vibration pump normal operation, worn pump, scale buildup, or loose components.</div>
@@ -1311,7 +1388,7 @@
 
       <a id="boiler-opv" class="anchor-tag" aria-hidden="true"></a>
       <a id="electronics-pressurestat" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q13">
+      <div class="faq-item" id="q13" data-category="temperature">
         <h2>13. My pressure gauge shows incorrect readings.</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Faulty gauge, pressure relief valve issues, or actual pressure problems.</div>
@@ -1327,7 +1404,7 @@
 
       <a id="solenoid-failure" class="anchor-tag" aria-hidden="true"></a>
       <a id="water-flowmeter" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q14">
+      <div class="faq-item" id="q14" data-category="water-flow">
         <h2>14. Machine keeps running and overfills shots.</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Faulty flow meter, stuck button, or programming issue on automatic machines.</div>
@@ -1342,7 +1419,7 @@
       </div>
 
       <a id="electronics-pcb" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q15">
+      <div class="faq-item" id="q15" data-category="maintenance">
         <h2>15. Display shows error codes.</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Common codes:</strong> Fill tank, descale needed, grinder blocked, or service required.</div>
@@ -1357,7 +1434,7 @@
       </div>
 
       <a id="electronics-ssr" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q16">
+      <div class="faq-item" id="q16" data-category="temperature">
         <h2>16. Machine gets too hot or overheats.</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Faulty thermostat, scale preventing heat dissipation, or PID controller malfunction.</div>
@@ -1371,7 +1448,7 @@
         </div>
       </div>
 
-      <div class="faq-item" id="q17">
+      <div class="faq-item" id="q17" data-category="maintenance">
         <h2>17. Portafilter is stuck or won't lock in.</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Coffee grounds in threads, worn gasket, or bent portafilter ears.</div>
@@ -1385,7 +1462,7 @@
         </div>
       </div>
 
-      <div class="faq-item" id="q18">
+      <div class="faq-item" id="q18" data-category="maintenance">
         <h2>18. Machine won't turn on at all.</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Power supply issue, blown fuse, faulty switch, or safety thermostat tripped.</div>
@@ -1400,7 +1477,7 @@
       </div>
 
       <a id="water-quality" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q19">
+      <div class="faq-item" id="q19" data-category="taste">
         <h2>19. Coffee has metallic or strange taste.</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> New machine needs seasoning, stale water sitting in the tank, chlorine-heavy tap water, or scale leaching into the brew path.</div>
@@ -1415,7 +1492,7 @@
         </div>
       </div>
 
-      <div class="faq-item" id="q20">
+      <div class="faq-item" id="q20" data-category="maintenance">
         <h2>20. Should I repair or replace my machine?</h2>
         <div class="faq-answer">
           <div class="solution-list">
@@ -1439,7 +1516,7 @@
 
 
       <a id="shots-channeling" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q21">
+      <div class="faq-item" id="q21" data-category="shot-consistency">
         <h2>21. Espresso shot channels or pours unevenly.</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Uneven puck prep, clumps in the basket, basket not level, or gasket wear letting water sneak down one side.</div>
@@ -1455,7 +1532,7 @@
       </div>
 
       <a id="preinfusion" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q22">
+      <div class="faq-item" id="q22" data-category="shot-consistency">
         <h2>22. Pre-infusion doesn&#39;t start or stops too quickly.</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Pre-infusion disabled in the menu, low water level, pump not primed, or a scaled flow meter/solenoid.</div>
@@ -1470,7 +1547,7 @@
       </div>
 
       <a id="group-sputter" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q23">
+      <div class="faq-item" id="q23" data-category="shot-consistency">
         <h2>23. Group head sputters or sprays water everywhere.</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Clogged shower screen, scale behind the screen, warped dispersion plate, or a gasket that isn&#39;t sealing.</div>
@@ -1485,7 +1562,7 @@
       </div>
 
       <a id="brew-pressure" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q24">
+      <div class="faq-item" id="q24" data-category="shot-consistency">
         <h2>24. Brew pressure is stuck below 8 bar or spikes above 10.</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Mis-adjusted OPV (over-pressure valve), failing vibration pump, clogged puck, or heavy scale restricting flow.</div>
@@ -1500,7 +1577,7 @@
       </div>
 
       <a id="grinder-jam" class="anchor-tag" aria-hidden="true"></a>
-      <div class="faq-item" id="q25">
+      <div class="faq-item" id="q25" data-category="grinder">
         <h2>25. My grinder is jammed and the motor just hums.</h2>
         <div class="faq-answer">
           <div class="causes-list"><strong>Causes:</strong> Bean fragments wedged between burrs, foreign objects (stones, screws), oily beans compacted in the chute, or mis-seated burr carrier.</div>
@@ -1930,6 +2007,58 @@
       }
       expandFromHash();
       window.addEventListener('hashchange', expandFromHash);
+    })();
+
+    /* Assign data-category to grinder and super-auto section items */
+    (function() {
+      var gs = document.getElementById('grinder-section');
+      if (gs) gs.querySelectorAll('.faq-item').forEach(function(item) { item.dataset.category = 'grinder'; });
+      var sa = document.getElementById('superauto-section');
+      if (sa) sa.querySelectorAll('.faq-item').forEach(function(item) { item.dataset.category = 'super-auto'; });
+    })();
+
+    /* Inject booking CTA into each faq-answer */
+    (function() {
+      document.querySelectorAll('.faq-answer').forEach(function(answer) {
+        var cta = document.createElement('div');
+        cta.className = 'faq-cta';
+        cta.innerHTML = 'Still stuck? We\u2019d love to take a look. <a href="https://www.kanencoffee.com/book-appointment" target="_blank" rel="noopener">Book a repair \u2192</a>';
+        answer.appendChild(cta);
+      });
+    })();
+
+    /* Category filter bar */
+    (function() {
+      var bar = document.getElementById('faq-filter-bar');
+      if (!bar) return;
+      bar.addEventListener('click', function(e) {
+        var btn = e.target.closest('.filter-btn');
+        if (!btn) return;
+        bar.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        var filter = btn.dataset.filter;
+        document.querySelectorAll('.faq-item').forEach(function(item) {
+          if (filter === 'all') {
+            item.classList.remove('hidden');
+          } else {
+            if (item.dataset.category === filter) {
+              item.classList.remove('hidden');
+            } else {
+              item.classList.add('hidden');
+              item.classList.remove('expanded');
+              var h2 = item.querySelector('h2');
+              if (h2) h2.setAttribute('aria-expanded', 'false');
+            }
+          }
+        });
+        /* When filtering, also show/hide the section headings */
+        ['grinder-section', 'superauto-section'].forEach(function(secId) {
+          var sec = document.getElementById(secId);
+          if (!sec) return;
+          var secFilter = secId === 'grinder-section' ? 'grinder' : 'super-auto';
+          sec.style.display = (filter === 'all' || filter === secFilter) ? '' : 'none';
+        });
+      });
     })();
 
     /* Back to top */
