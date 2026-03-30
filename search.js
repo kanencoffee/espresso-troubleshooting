@@ -120,7 +120,16 @@
       item.style.display = match ? '' : 'none';
       if (match) visible++;
     });
-    countEl.textContent = q ? 'Showing ' + visible + ' of ' + total + ' issues' : '';
+    if (!q) {
+      countEl.textContent = '';
+      countEl.style.cssText = '';
+    } else if (visible === 0) {
+      countEl.innerHTML = 'No results for <strong>\u201c' + q.replace(/</g, '&lt;') + '\u201d</strong> &mdash; try a different term';
+      countEl.style.cssText = 'color:#fff;font-size:1em;font-weight:500;margin-top:10px;opacity:1';
+    } else {
+      countEl.textContent = 'Showing ' + visible + ' of ' + total + ' issues';
+      countEl.style.cssText = '';
+    }
 
     // Dropdown: show up to 7 matching results when ≥2 chars typed
     if (q.length >= 2) {
