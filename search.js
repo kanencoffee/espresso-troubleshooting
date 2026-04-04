@@ -143,14 +143,28 @@
       hideDropdown();
     }
 
-    // GA4 search tracking — fires after 800ms of no typing
+    // Search tracking — fires after 1s of no typing (GA4 + Google Sheet)
     clearTimeout(input._searchTimer);
     if (q.length >= 3) {
       input._searchTimer = setTimeout(function () {
+        // GA4: general search event
         if (typeof gtag === 'function') {
           gtag('event', 'search', { search_term: q });
+          // GA4: dedicated no-results event for easier reporting
+          if (visible === 0) {
+            gtag('event', 'search_no_results', { search_term: q });
+          }
         }
-      }, 800);
+        // Google Sheet: log every search with result count
+        if (window.__SEARCH_LOG_URL) {
+          var img = new Image();
+          img.src = window.__SEARCH_LOG_URL +
+            '?q=' + encodeURIComponent(q) +
+            '&results=' + visible +
+            '&total=' + total +
+            '&t=' + Date.now();
+        }
+      }, 1000);
     }
   });
 
