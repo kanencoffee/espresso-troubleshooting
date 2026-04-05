@@ -985,6 +985,72 @@
       display: none;
     }
 
+    /* Safety Disclaimer */
+    .safety-disclaimer {
+      border: 1.5px solid #e8c97a;
+      border-radius: 12px;
+      background: #fdf8ec;
+      padding: 20px 22px;
+      margin-bottom: 28px;
+      font-size: 0.85em;
+      line-height: 1.6;
+      color: #6b5318;
+    }
+    .safety-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 0.85em;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #7a5c10;
+    }
+    .safety-intro {
+      margin: 0 0 16px 0;
+      color: #6b5318;
+    }
+    .safety-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .safety-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .safety-card > span {
+      font-size: 1.2em;
+      flex-shrink: 0;
+      line-height: 1.4;
+    }
+    .safety-card strong {
+      display: block;
+      margin-bottom: 2px;
+      color: #7a5c10;
+      font-size: 0.95em;
+    }
+    .safety-card p {
+      margin: 0;
+      color: #6b5318;
+    }
+    .safety-legal {
+      border-top: 1px solid #e0d1a0;
+      padding-top: 12px;
+      font-size: 0.92em;
+      color: #8a7230;
+    }
+    @media (max-width: 600px) {
+      .safety-grid {
+        grid-template-columns: 1fr;
+      }
+      .safety-disclaimer {
+        padding: 16px;
+      }
+    }
+
     /* Booking CTA inside answers */
     .faq-cta {
       margin-top: 14px;
@@ -1204,6 +1270,70 @@
         <button class="filter-btn" data-filter="grinder">⚙️ Grinder</button>
         <button class="filter-btn" data-filter="maintenance">🔧 Maintenance</button>
         <button class="filter-btn" data-filter="super-auto">🤖 Super-Automatic</button>
+      </div>
+
+      <!-- Safety Disclaimer -->
+      <div class="safety-disclaimer">
+        <div class="safety-header">
+          <span aria-hidden="true">&#9888;&#65039;</span>
+          <strong>Your Safety Matters &mdash; Please Read Before Servicing</strong>
+        </div>
+        <p class="safety-intro">
+          We care about your well-being. Espresso machines involve real hazards &mdash; extreme heat,
+          high-pressure steam, scalding water, mains electricity, and chemical cleaning agents.
+          Please take a moment to review these precautions before working on your machine.
+        </p>
+        <div class="safety-grid">
+          <div class="safety-card">
+            <span aria-hidden="true">&#128293;</span>
+            <div>
+              <strong>Heat &amp; Pressure</strong>
+              <p>Boilers reach 90&ndash;130&thinsp;&deg;C and brew circuits operate at 8&ndash;9 bar.
+              <strong>Always unplug your machine and wait at least one hour</strong> &mdash; or until all
+              surfaces are cool to the touch &mdash; before opening it up. Open steam wands or the hot
+              water tap to fully depressurise before any internal work.</p>
+            </div>
+          </div>
+          <div class="safety-card">
+            <span aria-hidden="true">&#9889;</span>
+            <div>
+              <strong>Mains Electricity</strong>
+              <p>Machines run at 120&ndash;240&thinsp;V AC and capacitors can hold a charge even after
+              unplugging. <strong>Never work on any internal components while the machine is plugged
+              in.</strong> If you are not trained in electrical safety, please do not open the machine
+              &mdash; leave it to a qualified technician.</p>
+            </div>
+          </div>
+          <div class="safety-card">
+            <span aria-hidden="true">&#129514;</span>
+            <div>
+              <strong>Chemical Safety</strong>
+              <p><strong>Never mix cleaning products</strong> &mdash; combining descalers, backflush
+              detergents, and cleaning tablets can produce toxic fumes or harmful reactions. Always
+              follow the manufacturer&rsquo;s instructions, use one product at a time, and rinse
+              thoroughly between steps.</p>
+            </div>
+          </div>
+          <div class="safety-card">
+            <span aria-hidden="true">&#128737;&#65039;</span>
+            <div>
+              <strong>Know Your Limits</strong>
+              <p>There is no shame in calling a professional. If a repair feels beyond your comfort
+              level, please reach out to us or another qualified service technician.
+              <strong>Your safety is always more important than any repair.</strong></p>
+            </div>
+          </div>
+        </div>
+        <div class="safety-legal">
+          <strong>Disclaimer:</strong> The information on this site is provided for general reference
+          and educational purposes only. Espresso machine repair carries inherent risks including,
+          but not limited to, burns, scalding, electric shock, high-pressure injury, and exposure to
+          hazardous chemicals. <strong>Kanen Coffee, LLC and the contributors to this guide cannot
+          accept responsibility or liability for any injury, damage, loss, or other consequence</strong>
+          arising from the use or application of the information provided here. By using this guide,
+          you acknowledge these risks and agree to proceed at your own discretion. Always consult a
+          qualified service technician for repairs beyond your skill level.
+        </div>
       </div>
 
       <a id="group-no-flow" class="anchor-tag" aria-hidden="true"></a>
