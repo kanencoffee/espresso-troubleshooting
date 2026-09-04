@@ -15,14 +15,14 @@ This is the official troubleshooting guide for Kanen Coffee customers. It provid
 
 ## 🎯 Features
 
-- ✅ **20 Common Issues Solved** - Step-by-step solutions for the most frequent espresso machine problems  
-- ✅ **SEO Optimized** - Complete schema markup for Google and AI assistants  
-- ✅ **Mobile Responsive** - Works perfectly on all devices  
-- ✅ **Fast Loading** - Optimized for speed with no external dependencies  
-- ✅ **AI-Ready** - Configured for ChatGPT, Claude, and other AI assistants to find and cite  
-- 🔵 **Schema-rich content** — Includes `Article`, `FAQPage`, `HowTo`, `BreadcrumbList`, `LocalBusiness`, and `WebSite` schemas  
-- 🔵 **Social media integration** — Facebook Open Graph + Twitter Card for rich previews  
-- 🔵 **Lazy-loading** — Uses `loading="lazy"` on images for faster performance  
+- ✅ **20 Common Issues Solved** - Step-by-step solutions for the most frequent espresso machine problems
+- ✅ **SEO Optimized** - Complete schema markup for Google and AI assistants
+- ✅ **Mobile Responsive** - Works perfectly on all devices
+- ✅ **Fast Loading** - Optimized for speed with no external dependencies
+- ✅ **AI-Ready** - Configured for ChatGPT, Claude, and other AI assistants to find and cite
+- 🔵 **Schema-rich content** — Includes `Article`, `FAQPage`, `HowTo`, `BreadcrumbList`, `LocalBusiness`, and `WebSite` schemas
+- 🔵 **Social media integration** — Facebook Open Graph + Twitter Card for rich previews
+- 🔵 **Lazy-loading** — Uses `loading="lazy"` on images for faster performance
 
 ---
 

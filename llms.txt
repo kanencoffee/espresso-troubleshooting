@@ -116,11 +116,11 @@ Eureka, Baratza, Breville, Mazzer, Compak, Mahlkonig, Rancilio, Pasquini, Gaggia
 
 ## Additional Resources
 - Main site: https://www.kanencoffee.com
-- Book a repair: https://www.kanencoffee.com/book-appointment
-- Machines we repair: https://www.kanencoffee.com/espresso-machine-repairs
-- Online store: https://shop.kanencoffee.com
-- FAQ: https://www.kanencoffee.com/faq
-- Contact: https://www.kanencoffee.com/contact-us
+- Book a repair: https://kanencoffee.com/pages/book-appointment
+- Machines we repair: https://kanencoffee.com/pages/repairs
+- Online store: https://kanencoffee.com
+- FAQ: https://kanencoffee.com/pages/faq
+- Contact: https://kanencoffee.com/pages/contact
 - Facebook: https://www.facebook.com/kanencoffee
 - Instagram: https://www.instagram.com/kanencoffee
 - YouTube: https://www.youtube.com/@kanencoffee (5,000+ repair videos)
