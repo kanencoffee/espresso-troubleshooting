@@ -1,4 +1,12 @@
 (function() {
+  var clarityEvents = {
+    booking: 'HelpBookingClick',
+    repair_info: 'HelpRepairInfoClick',
+    store: 'HelpStoreClick',
+    phone: 'HelpPhoneClick',
+    email: 'HelpEmailClick'
+  };
+
   function getClickType(url) {
     var path = url.pathname;
 
@@ -12,20 +20,34 @@
   }
 
   document.addEventListener('click', function(event) {
-    var link = event.target.closest && event.target.closest('a[href]');
-    if (!link || typeof gtag !== 'function') return;
+    var target = event.target;
+    var link = target && target.closest && target.closest('a[href]');
+    if (!link) return;
 
+    var url;
     try {
-      var url = new URL(link.href, window.location.href);
-      var clickType = getClickType(url);
-      if (!clickType) return;
+      url = new URL(link.href, window.location.href);
+    } catch (error) {
+      return;
+    }
+    var clickType = getClickType(url);
+    if (!clickType) return;
 
-      gtag('event', 'help_site_conversion_click', {
-        event_category: 'help_site',
-        event_label: link.textContent.trim().slice(0, 100),
-        link_url: link.href,
-        click_type: clickType
-      });
-    } catch (error) {}
+    // Keep each tracker independent so a blocked tag does not hide the other event.
+    if (typeof window.gtag === 'function') {
+      try {
+        window.gtag('event', 'help_site_conversion_click', {
+          event_category: 'help_site',
+          event_label: link.textContent.trim().slice(0, 100),
+          link_url: link.href,
+          click_type: clickType
+        });
+      } catch (error) {}
+    }
+    if (typeof window.clarity === 'function') {
+      try {
+        window.clarity('event', clarityEvents[clickType]);
+      } catch (error) {}
+    }
   });
 })();
