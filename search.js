@@ -1,185 +1,207 @@
 (function () {
   var input = document.getElementById('issue-search');
   var countEl = document.getElementById('search-count');
-  if (!input) return;
+  if (!input || !countEl) return;
 
+  var category = 'all', activeIndex = -1;
+  var suggestions = [], matches = [], guideMatches = [];
+  var wrapper = input.closest('.search-wrapper') || input.parentElement;
+  var filterBar = document.getElementById('faq-filter-bar');
   var items = Array.from(document.querySelectorAll('.faq-item'));
-  var total = items.length;
-
-  // Build a data set from the FAQ items for the dropdown
-  var itemData = items.map(function (item) {
-    var h2 = item.querySelector('h2');
-    var title = h2 ? h2.textContent.replace(/^\d+\.\s*/, '') : '';
-    var causesEl = item.querySelector('.causes-list');
-    var causes = causesEl ? causesEl.textContent.replace(/^(Common causes|Causes):\s*/i, '').trim() : '';
-    return { el: item, title: title, causes: causes };
+  function normalize(text) {
+    return text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[-_]/g, ' ');
+  }
+  var itemData = items.map(function (item, index) {
+    if (!item.id) item.id = 'issue-' + (index + 1);
+    if (item.closest('#grinder-section')) item.dataset.category = 'grinder';
+    if (item.closest('#superauto-section')) item.dataset.category = 'super-auto';
+    var heading = item.querySelector('h2');
+    return { el: item, title: heading ? heading.textContent.replace(/^\d+\.\s*/, '').trim() : '',
+      text: normalize(item.textContent), category: item.dataset.category, type: 'issue' };
   });
-
-  // Create the dropdown container
+  var seen = new Set();
+  var guides = Array.from(document.querySelectorAll('.quick-nav a[href]')).reduce(function (list, link) {
+    var url = new URL(link.href, location.href);
+    if (url.origin === location.origin && url.pathname.endsWith('.html') && !seen.has(url.pathname)) {
+      seen.add(url.pathname);
+      list.push({ title: link.textContent.trim(), href: url.href, type: 'guide',
+        text: normalize(link.textContent + ' ' + url.pathname.replace(/\.html$/, '')) });
+    }
+    return list;
+  }, []);
+  var introductorySections = Array.from(document.querySelectorAll('.quick-nav, .hero-image, .shop-cta, .popular-videos')).map(function (el) {
+    return { el: el, display: el.style.display };
+  });
   var dropdown = document.createElement('ul');
   dropdown.id = 'search-dropdown';
+  dropdown.hidden = true;
   dropdown.setAttribute('role', 'listbox');
   dropdown.setAttribute('aria-label', 'Search suggestions');
-  dropdown.style.cssText = [
-    'position:absolute',
-    'top:100%',
-    'left:0',
-    'right:0',
-    'margin:4px 0 0',
-    'padding:0',
-    'list-style:none',
-    'background:#fff',
-    'border:1px solid #d0cdc8',
-    'border-radius:8px',
-    'box-shadow:0 8px 24px rgba(0,0,0,0.14)',
-    'z-index:9999',
-    'max-height:320px',
-    'overflow-y:auto',
-    'display:none'
-  ].join(';');
-
-  // Insert dropdown inside .search-wrapper so it inherits the positioning context
-  var wrapper = input.closest('.search-wrapper') || input.parentElement;
-  wrapper.style.position = 'relative';
   wrapper.appendChild(dropdown);
+  input.setAttribute('role', 'combobox');
+  input.setAttribute('aria-autocomplete', 'list');
+  input.setAttribute('aria-controls', dropdown.id);
+  input.setAttribute('aria-expanded', 'false');
+  input.setAttribute('aria-describedby', countEl.id);
+  countEl.setAttribute('role', 'status');
+  countEl.setAttribute('aria-live', 'polite');
+  var reset = document.createElement('button');
+  reset.id = 'search-reset';
+  reset.type = 'button';
+  reset.textContent = 'Clear search and filters';
+  reset.hidden = true;
+  countEl.insertAdjacentElement('afterend', reset);
+  var guideResults = document.createElement('section');
+  guideResults.id = 'guide-search-results';
+  guideResults.setAttribute('aria-label', 'Matching guides');
+  guideResults.hidden = true;
+  if (filterBar) filterBar.insertAdjacentElement('afterend', guideResults);
 
   function hideDropdown() {
-    dropdown.style.display = 'none';
-    while (dropdown.firstChild) dropdown.removeChild(dropdown.firstChild);
+    dropdown.hidden = true;
+    activeIndex = -1;
+    input.setAttribute('aria-expanded', 'false');
+    input.removeAttribute('aria-activedescendant');
   }
-
-  function makeLi(d) {
-    var li = document.createElement('li');
-    li.setAttribute('role', 'option');
-    li.style.cssText = 'padding:10px 14px;cursor:pointer;border-bottom:1px solid #f0ede8';
-
-    var titleSpan = document.createElement('span');
-    titleSpan.style.cssText = 'display:block;font-weight:600;font-size:0.92em;color:#2c1810';
-    titleSpan.textContent = d.title;
-    li.appendChild(titleSpan);
-
-    if (d.causes) {
-      var causeSpan = document.createElement('span');
-      causeSpan.style.cssText = 'display:block;font-size:0.8em;color:#7a6a5a;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis';
-      causeSpan.textContent = d.causes.length > 80 ? d.causes.substring(0, 80) + '\u2026' : d.causes;
-      li.appendChild(causeSpan);
+  function selectResult(result) {
+    hideDropdown();
+    if (result.type === 'guide') { window.location.assign(result.href); return; }
+    result.el.classList.add('expanded');
+    var heading = result.el.querySelector('h2');
+    if (heading) {
+      heading.setAttribute('role', 'button');
+      heading.setAttribute('tabindex', '0');
+      heading.setAttribute('aria-expanded', 'true');
+      heading.focus({ preventScroll: true });
     }
-
-    li.addEventListener('mouseenter', function () { li.style.background = '#fdf6f0'; });
-    li.addEventListener('mouseleave', function () { li.style.background = ''; });
-    li.addEventListener('mousedown', function (e) {
-      e.preventDefault();
-      hideDropdown();
-      input.value = '';
-      countEl.textContent = '';
-      restoreAll();
-      d.el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      d.el.style.outline = '2px solid #c84b31';
-      setTimeout(function () { d.el.style.outline = ''; }, 1500);
+    result.el.scrollIntoView({ behavior: 'auto', block: 'start' });
+  }
+  function setActive(index) {
+    activeIndex = index;
+    Array.from(dropdown.children).forEach(function (option, i) { option.setAttribute('aria-selected', String(i === index)); });
+    var option = dropdown.children[index];
+    if (option) {
+      input.setAttribute('aria-activedescendant', option.id);
+      option.scrollIntoView({ block: 'nearest' });
+    }
+  }
+  function showDropdown() {
+    hideDropdown();
+    dropdown.replaceChildren();
+    if (input.value.trim().length < 2) return;
+    suggestions = guideMatches.concat(matches).slice(0, 7);
+    suggestions.forEach(function (result, index) {
+      var option = document.createElement('li');
+      option.id = 'search-option-' + index;
+      option.setAttribute('role', 'option');
+      option.setAttribute('aria-selected', 'false');
+      var title = document.createElement('strong');
+      title.textContent = result.title;
+      var type = document.createElement('span');
+      type.textContent = result.type === 'guide' ? 'Troubleshooting guide' : 'Issue and solution';
+      option.append(title, type);
+      option.addEventListener('mousedown', function (event) { event.preventDefault(); });
+      option.addEventListener('click', function () { selectResult(result); });
+      option.addEventListener('mouseenter', function () { setActive(index); });
+      dropdown.appendChild(option);
     });
-    return li;
+    dropdown.hidden = suggestions.length === 0;
+    input.setAttribute('aria-expanded', String(!dropdown.hidden));
   }
-
-  function showDropdown(matches) {
-    while (dropdown.firstChild) dropdown.removeChild(dropdown.firstChild);
-    if (!matches.length) { dropdown.style.display = 'none'; return; }
-    matches.forEach(function (d) { dropdown.appendChild(makeLi(d)); });
-    dropdown.style.display = 'block';
-  }
-
-  function restoreAll() {
-    // Re-query every time to avoid stale closure references
-    var qn = document.querySelector('.quick-nav');
-    var hi = document.querySelector('.hero-image');
-    if (qn) qn.style.display = '';
-    if (hi) hi.style.display = '';
-    items.forEach(function (item) { item.style.display = ''; });
-  }
-
-  input.addEventListener('input', function () {
-    var q = input.value.trim().toLowerCase();
-
-    // Re-query every time — avoids stale IIFE-closure reference bug
-    var qn = document.querySelector('.quick-nav');
-    var hi = document.querySelector('.hero-image');
-
-    if (q) {
-      if (qn) qn.style.display = 'none';
-      if (hi) hi.style.display = 'none';
-    } else {
-      if (qn) qn.style.display = '';
-      if (hi) hi.style.display = '';
-      hideDropdown();
-    }
-
-    // Filter the full FAQ list (keeps count behavior)
-    var visible = 0;
-    items.forEach(function (item) {
-      var text = item.textContent.toLowerCase();
-      var match = !q || text.indexOf(q) !== -1;
-      item.style.display = match ? '' : 'none';
-      if (match) visible++;
+  function render(showSuggestions) {
+    var query = normalize(input.value.trim());
+    var tokens = query.split(/\s+/).filter(Boolean);
+    function textMatches(text) { return tokens.every(function (token) { return text.includes(token); }); }
+    matches = itemData.filter(function (item) {
+      var visible = (category === 'all' || item.category === category) && textMatches(item.text);
+      item.el.classList.toggle('hidden', !visible);
+      item.el.style.display = visible ? '' : 'none';
+      return visible;
     });
-    if (!q) {
-      countEl.textContent = '';
-      countEl.style.cssText = '';
-    } else if (visible === 0) {
-      countEl.innerHTML = 'No results for <strong>\u201c' + q.replace(/</g, '&lt;') + '\u201d</strong> &mdash; try a different term';
-      countEl.style.cssText = 'color:#fff;font-size:1em;font-weight:500;margin-top:10px;opacity:1';
-    } else {
-      countEl.textContent = 'Showing ' + visible + ' of ' + total + ' issues';
-      countEl.style.cssText = '';
+    guideMatches = query.length >= 2 && category === 'all' ? guides.filter(function (guide) { return textMatches(guide.text); }) : [];
+    ['grinder-section', 'superauto-section'].forEach(function (id) {
+      var section = document.getElementById(id);
+      if (section) section.style.display = matches.some(function (item) { return section.contains(item.el); }) ? '' : 'none';
+    });
+    introductorySections.forEach(function (section) { section.el.style.display = query ? 'none' : section.display; });
+    if (filterBar) filterBar.querySelectorAll('.filter-btn').forEach(function (button) {
+      var selected = button.dataset.filter === category;
+      button.classList.toggle('active', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+    guideResults.replaceChildren();
+    guideResults.hidden = !guideMatches.length;
+    if (guideMatches.length) {
+      var heading = document.createElement('h2');
+      heading.textContent = 'Matching guides';
+      var list = document.createElement('ul');
+      guideMatches.forEach(function (guide) {
+        var item = document.createElement('li'), link = document.createElement('a');
+        link.href = guide.href;
+        link.textContent = guide.title;
+        item.appendChild(link);
+        list.appendChild(item);
+      });
+      guideResults.append(heading, list);
     }
-
-    // Dropdown: show up to 7 matching results when ≥2 chars typed
-    if (q.length >= 2) {
-      var matches = itemData.filter(function (d) {
-        return d.title.toLowerCase().indexOf(q) !== -1 ||
-               d.causes.toLowerCase().indexOf(q) !== -1 ||
-               d.el.textContent.toLowerCase().indexOf(q) !== -1;
-      }).slice(0, 7);
-      showDropdown(matches);
-    } else {
-      hideDropdown();
-    }
-
-    // Search tracking — fires after 1s of no typing (GA4 + Google Sheet)
+    reset.hidden = !query && category === 'all';
+    if (reset.hidden) countEl.textContent = '';
+    else if (!matches.length && !guideMatches.length) countEl.textContent = 'No matches. Try another term or clear the filters.';
+    else countEl.textContent = 'Showing ' + matches.length + ' of ' + items.length + ' issues' +
+      (guideMatches.length ? ' and ' + guideMatches.length + (guideMatches.length === 1 ? ' guide' : ' guides') : '');
+    if (showSuggestions) showDropdown(); else hideDropdown();
+  }
+  function trackSearch() {
     clearTimeout(input._searchTimer);
-    if (q.length >= 3) {
-      input._searchTimer = setTimeout(function () {
-        // GA4: general search event
-        if (typeof gtag === 'function') {
-          gtag('event', 'search', { search_term: q });
-          // GA4: dedicated no-results event for easier reporting
-          if (visible === 0) {
-            gtag('event', 'search_no_results', { search_term: q });
-          }
-        }
-        // Google Sheet: log every search with result count
-        if (window.__SEARCH_LOG_URL) {
-          var img = new Image();
-          img.src = window.__SEARCH_LOG_URL +
-            '?q=' + encodeURIComponent(q) +
-            '&results=' + visible +
-            '&total=' + total +
-            '&t=' + Date.now();
-        }
-      }, 1000);
-    }
+    var query = input.value.trim().toLowerCase();
+    var visible = matches.length + guideMatches.length;
+    if (query.length < 3) return;
+    input._searchTimer = setTimeout(function () {
+      if (typeof gtag === 'function') {
+        gtag('event', 'search', { search_term: query });
+        if (!visible) gtag('event', 'search_no_results', { search_term: query });
+      }
+      if (window.__SEARCH_LOG_URL) {
+        var img = new Image();
+        img.src = window.__SEARCH_LOG_URL + '?q=' + encodeURIComponent(query) +
+          '&results=' + visible + '&total=' + (items.length + guides.length) + '&t=' + Date.now();
+      }
+    }, 1000);
+  }
+  input.addEventListener('input', function () { render(true); trackSearch(); });
+  input.addEventListener('focus', showDropdown);
+  input.addEventListener('keydown', function (event) {
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (dropdown.hidden) showDropdown();
+      if (!dropdown.hidden) {
+        var next = activeIndex < 0 ? (event.key === 'ArrowDown' ? 0 : suggestions.length - 1) :
+          (activeIndex + (event.key === 'ArrowDown' ? 1 : -1) + suggestions.length) % suggestions.length;
+        setActive(next);
+      }
+    } else if (event.key === 'Enter' && !dropdown.hidden && suggestions.length) {
+      event.preventDefault();
+      selectResult(suggestions[Math.max(activeIndex, 0)]);
+    } else if (event.key === 'Escape') {
+      event.preventDefault();
+      if (!dropdown.hidden) hideDropdown();
+      else { input.value = ''; render(false); clearTimeout(input._searchTimer); }
+    } else if (event.key === 'Tab') hideDropdown();
   });
-
-  // Close dropdown when clicking outside
-  document.addEventListener('mousedown', function (e) {
-    if (!wrapper.contains(e.target)) hideDropdown();
+  document.addEventListener('mousedown', function (event) { if (!wrapper.contains(event.target)) hideDropdown(); });
+  document.addEventListener('focusin', function (event) { if (!wrapper.contains(event.target)) hideDropdown(); });
+  reset.addEventListener('click', function () {
+    input.value = ''; category = 'all';
+    clearTimeout(input._searchTimer);
+    render(false);
+    input.focus();
   });
-
-  // Close on Escape, clear search
-  input.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      hideDropdown();
-      input.value = '';
-      countEl.textContent = '';
-      restoreAll();
-    }
+  if (filterBar) filterBar.addEventListener('click', function (event) {
+    var button = event.target.closest('.filter-btn');
+    if (!button) return;
+    category = button.dataset.filter;
+    render(false);
+    trackSearch();
   });
+  render(false);
 })();

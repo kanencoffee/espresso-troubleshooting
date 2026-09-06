@@ -559,7 +559,7 @@
 
     .nav-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
       gap: 15px;
     }
 
@@ -1139,6 +1139,7 @@
   <!-- Security headers (meta equivalents) -->
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://tagmanager.google.com https://www.google-analytics.com https://region1.google-analytics.com https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://www.clarity.ms https://*.clarity.ms; frame-src https://www.googletagmanager.com https://tagmanager.google.com https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self';">
+  <link rel="stylesheet" href="/help-responsive.css?v=20260906">
 </head>
 
 <body>
@@ -1179,7 +1180,7 @@
 
   <!-- Shop + Showroom CTA (intent re-route for product/repair-near-me queries) -->
   <section class="shop-cta" style="margin: 0 auto 24px; max-width: 1100px; padding: 0 20px;">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px;">
       <a href="https://kanencoffee.com/" target="_blank" rel="noopener" style="display:block; padding:18px 20px; background:#fff7f3; border:1px solid #f3d8c9; border-left:4px solid #a83a1f; border-radius:8px; text-decoration:none; color:#222;">
         <strong style="display:block; font-size:1.05em; color:#a83a1f; margin-bottom:4px;">☕ Berkeley Espresso Showroom</strong>
         <span style="display:block; font-size:.95em; line-height:1.4;">40+ machines on the floor — Breville, Lelit, La Marzocco, ECM, Profitec, Rocket, Flair, Gaggia. <strong>2319 4th St, Berkeley.</strong></span>
@@ -1188,7 +1189,7 @@
         <strong style="display:block; font-size:1.05em; color:#3a6fbf; margin-bottom:4px;">🔧 Repair Service</strong>
         <span style="display:block; font-size:.95em; line-height:1.4;">Authorized for Breville, Lelit, La Marzocco, Delonghi & more. Bay Area drop-off or ship-in from anywhere in the US.</span>
       </a>
-      <a href="https://kanencoffee.com/pages/book-appointment" target="_blank" rel="noopener" style="display:block; padding:18px 20px; background:#fff; border:1px solid #ddd; border-left:4px solid #246b45; border-radius:8px; text-decoration:none; color:#222;">
+      <a href="https://kanencoffee.com/pages/book-appointment?book=new-machine" target="_blank" rel="noopener" style="display:block; padding:18px 20px; background:#fff; border:1px solid #ddd; border-left:4px solid #246b45; border-radius:8px; text-decoration:none; color:#222;">
         <strong style="display:block; font-size:1.05em; color:#246b45; margin-bottom:4px;">📅 Book a Buying Consultation</strong>
         <span style="display:block; font-size:.95em; line-height:1.4;">Buying advice with our service team, in person at our Berkeley showroom. Book online.</span>
       </a>
@@ -1345,7 +1346,7 @@
     <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
       <h2 style="color: #2c3e50; border-bottom: 3px solid #a83a1f; padding-bottom: 10px; margin-bottom: 20px;">📺 Popular Kanen Coffee Repair Videos</h2>
       <p style="color: #555; margin-bottom: 25px; line-height: 1.7;">Real repairs from our Berkeley bench — these are the most-watched videos on <a href="https://www.youtube.com/@kanencoffee" target="_blank" rel="noopener" style="color: #a83a1f; font-weight: 600;">@kanencoffee</a> (5,000+ repair videos total, 6.8M+ lifetime views).</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 20px;">
         <div>
           <div class="yt-facade" data-vid="z39tjVdU7oI" data-title="DeLonghi Dedica EC680 Review" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/z39tjVdU7oI?autoplay=1';f.title='DeLonghi Dedica EC680 Review';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/z39tjVdU7oI/hqdefault.jpg" alt="DeLonghi Dedica EC680 Review" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
           <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">DeLonghi Dedica EC680 — Review</h3>
@@ -2518,7 +2519,7 @@
   </main>
 
   <!-- Cross-site promo banner -->
-  <div style="background: linear-gradient(135deg, #2c3e50 0%, #a83a1f 100%); color: white; text-align: center; padding: 30px 20px; margin: 40px -20px -20px -20px;">
+  <div style="background: linear-gradient(135deg, #2c3e50 0%, #a83a1f 100%); color: white; text-align: center; padding: 30px 20px; margin: 40px 0 0;">
     <h3 style="margin-bottom: 10px; font-size: 1.4em;">Looking to Buy an Espresso Machine?</h3>
     <p style="margin-bottom: 15px; opacity: 0.9;">Shop our curated selection of Lelit, Breville, Eureka, and Baratza at our online store</p>
     <a href="https://kanencoffee.com" style="background: white; color: #a83a1f; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: bold; display: inline-block; margin: 5px;">Visit the Shop</a>
@@ -2555,7 +2556,7 @@
   <!-- Search logging: set this to your Google Apps Script URL (see README) -->
   <script>window.__SEARCH_LOG_URL = 'https://script.google.com/macros/s/AKfycbz_1_xC6KPBXaFxp5AmAuTLIA7vnmjaViKetxUGsXUtn0Jr0VxJVHMg9sECINWIFMF7kQ/exec';</script>
   <script src="/analytics-events.v1.js" defer></script>
-  <script src="/search.js" defer></script>
+  <script src="/search.js?v=20260906" defer></script>
   <script>
     /* Hamburger toggle \u2014 runs immediately (lightweight, interactive element) */
     (function() {
@@ -2584,7 +2585,7 @@
             if (!h2) continue;
             h2.setAttribute('role', 'button');
             h2.setAttribute('tabindex', '0');
-            h2.setAttribute('aria-expanded', 'false');
+            h2.setAttribute('aria-expanded', item.classList.contains('expanded') ? 'true' : 'false');
             h2.addEventListener('click', function() {
               var it = this.closest('.faq-item');
               it.classList.toggle('expanded');
@@ -2631,42 +2632,6 @@
           }
           expandFromHash();
           window.addEventListener('hashchange', expandFromHash);
-
-          /* Assign data-category */
-          var gs = document.getElementById('grinder-section');
-          if (gs) gs.querySelectorAll('.faq-item').forEach(function(item) { item.dataset.category = 'grinder'; });
-          var sa = document.getElementById('superauto-section');
-          if (sa) sa.querySelectorAll('.faq-item').forEach(function(item) { item.dataset.category = 'super-auto'; });
-
-          /* Category filter bar */
-          var bar = document.getElementById('faq-filter-bar');
-          if (bar) {
-            bar.addEventListener('click', function(e) {
-              var btn = e.target.closest('.filter-btn');
-              if (!btn) return;
-              bar.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
-              btn.classList.add('active');
-              var filter = btn.dataset.filter;
-              document.querySelectorAll('.faq-item').forEach(function(item) {
-                if (filter === 'all') {
-                  item.classList.remove('hidden');
-                } else if (item.dataset.category === filter) {
-                  item.classList.remove('hidden');
-                } else {
-                  item.classList.add('hidden');
-                  item.classList.remove('expanded');
-                  var h2 = item.querySelector('h2');
-                  if (h2) h2.setAttribute('aria-expanded', 'false');
-                }
-              });
-              ['grinder-section', 'superauto-section'].forEach(function(secId) {
-                var sec = document.getElementById(secId);
-                if (!sec) return;
-                var secFilter = secId === 'grinder-section' ? 'grinder' : 'super-auto';
-                sec.style.display = (filter === 'all' || filter === secFilter) ? '' : 'none';
-              });
-            });
-          }
 
           /* Inject booking CTAs \u2014 batched via fragment to avoid 53 reflows */
           setTimeout(function() {
