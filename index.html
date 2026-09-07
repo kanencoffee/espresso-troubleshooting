@@ -1139,10 +1139,10 @@
   <!-- Security headers (meta equivalents) -->
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://tagmanager.google.com https://www.google-analytics.com https://region1.google-analytics.com https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://www.clarity.ms https://*.clarity.ms; frame-src https://www.googletagmanager.com https://tagmanager.google.com https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self';">
-  <link rel="stylesheet" href="/help-responsive.css?v=20260906">
+  <link rel="stylesheet" href="/help-responsive.css?v=20260906-2">
 </head>
 
-<body>
+<body class="help-home">
   <!-- Google Tag Manager (noscript) -->
   <!-- End Google Tag Manager (noscript) -->
 
@@ -1178,108 +1178,12 @@
     <p class="search-count" id="search-count" aria-live="polite"></p>
   </header>
 
-  <!-- Shop + Showroom CTA (intent re-route for product/repair-near-me queries) -->
-  <section class="shop-cta" style="margin: 0 auto 24px; max-width: 1100px; padding: 0 20px;">
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px;">
-      <a href="https://kanencoffee.com/" target="_blank" rel="noopener" style="display:block; padding:18px 20px; background:#fff7f3; border:1px solid #f3d8c9; border-left:4px solid #a83a1f; border-radius:8px; text-decoration:none; color:#222;">
-        <strong style="display:block; font-size:1.05em; color:#a83a1f; margin-bottom:4px;">☕ Berkeley Espresso Showroom</strong>
-        <span style="display:block; font-size:.95em; line-height:1.4;">40+ machines on the floor — Breville, Lelit, La Marzocco, ECM, Profitec, Rocket, Flair, Gaggia. <strong>2319 4th St, Berkeley.</strong></span>
-      </a>
-      <a href="https://kanencoffee.com/pages/repairs" target="_blank" rel="noopener" style="display:block; padding:18px 20px; background:#f3f8ff; border:1px solid #cfdcef; border-left:4px solid #3a6fbf; border-radius:8px; text-decoration:none; color:#222;">
-        <strong style="display:block; font-size:1.05em; color:#3a6fbf; margin-bottom:4px;">🔧 Repair Service</strong>
-        <span style="display:block; font-size:.95em; line-height:1.4;">Authorized for Breville, Lelit, La Marzocco, Delonghi & more. Bay Area drop-off or ship-in from anywhere in the US.</span>
-      </a>
-      <a href="https://kanencoffee.com/pages/book-appointment?book=new-machine" target="_blank" rel="noopener" style="display:block; padding:18px 20px; background:#fff; border:1px solid #ddd; border-left:4px solid #246b45; border-radius:8px; text-decoration:none; color:#222;">
-        <strong style="display:block; font-size:1.05em; color:#246b45; margin-bottom:4px;">📅 Book a Buying Consultation</strong>
-        <span style="display:block; font-size:.95em; line-height:1.4;">Buying advice with our service team, in person at our Berkeley showroom. Book online.</span>
-      </a>
-    </div>
-  </section>
-
   <!-- Quick Navigation Section -->
   <section class="quick-nav">
     <h2>Quick Problem Finder</h2>
     <div class="nav-grid">
-      <div class="nav-category">
-        <h3>⚡ Water & Flow Issues</h3>
-        <ul>
-          <li><a href="#q1">Machine not pumping water</a></li>
-          <li><a href="#q2">Espresso coming out slowly</a></li>
-          <li><a href="#q3">Weak or watery espresso</a></li>
-          <li><a href="#q4">Machine leaking water</a></li>
-          <li><a href="#q14">Machine overfilling shots</a></li>
-        </ul>
-      </div>
-
-      <div class="nav-category">
-        <h3>🔥 Temperature & Steam</h3>
-        <ul>
-          <li><a href="#q5">Machine not heating up</a></li>
-          <li><a href="#q6">Steam wand not working</a></li>
-          <li><a href="#q13">Pressure gauge problems</a></li>
-          <li><a href="#q16">Machine overheating</a></li>
-        </ul>
-      </div>
-
-      <div class="nav-category">
-        <h3>☕ Taste & Quality</h3>
-        <ul>
-          <li><a href="#q8">Espresso tastes bitter</a></li>
-          <li><a href="#q9">Espresso tastes sour</a></li>
-          <li><a href="#q11">No crema on espresso</a></li>
-          <li><a href="#q19">Metallic / off flavors</a></li>
-          <li><a href="#water-quality">Water quality issues</a></li>
-        </ul>
-      </div>
-
-      <div class="nav-category">
-        <h3>🎯 Shot Consistency</h3>
-        <ul>
-          <li><a href="#q21">Uneven flow / channeling</a></li>
-          <li><a href="#q22">Pre-infusion not working</a></li>
-          <li><a href="#q23">Group head sputtering</a></li>
-          <li><a href="#q24">Brew pressure too low/high</a></li>
-        </ul>
-      </div>
-
-      <div class="nav-category">
-        <h3>⚙️ Grinder Issues</h3>
-        <ul>
-          <li><a href="#q10">Grinder runs but no output</a></li>
-          <li><a href="#q25">Grinder jam / motor hums</a></li>
-          <li><a href="#grinder-section">Common grinder problems</a></li>
-          <li><a href="#grinder-section">Burr maintenance</a></li>
-          <li><a href="#grinder-section">Grinder troubleshooting</a></li>
-        </ul>
-      </div>
-
-      <div class="nav-category">
-        <h3>🔧 Machine & Maintenance</h3>
-        <ul>
-          <li><a href="#q7">How to descale machine</a></li>
-          <li><a href="#q12">Machine making loud noises</a></li>
-          <li><a href="#q15">Display shows error codes</a></li>
-          <li><a href="#q17">Portafilter stuck/won't lock</a></li>
-          <li><a href="#superauto-brew-unit-jam">Brew unit stuck (by brand)</a></li>
-          <li><a href="#motor-drive-failure">Drive motor failure</a></li>
-          <li><a href="#brew-group-grinding-noise">Brew group clicking/grinding</a></li>
-          <li><a href="#brew-group-incomplete-cycle">Brew group stops mid-cycle</a></li>
-        </ul>
-      </div>
-
-      <div class="nav-category" style="background: #fff3e0; border-left-color: #ff9800;">
-        <h3>📋 Before You Start</h3>
-        <ul>
-          <li><a href="/machines-we-service.html" style="color: #a83a1f; font-weight: bold;">Full list of machines we service (40+ brands)</a></li>
-          <li><a href="https://kanencoffee.com/pages/repairs" target="_blank" style="color: #a83a1f; font-weight: bold;">About our repair service</a></li>
-          <li><a href="https://kanencoffee.com/pages/book-appointment" style="color: #a83a1f; font-weight: bold;">Book repair appointment</a></li>
-          <li>Most repairs: $300–$650 (median ≈$450)</li>
-          <li>Ship or drop off available</li>
-        </ul>
-      </div>
-
-      <div class="nav-category" style="background: #e8f4f8; border-left-color: #1d5f8f;">
-        <h3>🏷️ Brand-Specific Guides</h3>
+      <details class="nav-category">
+        <summary><h3>🏷️ Brand-Specific Guides</h3></summary>
         <ul>
           <li><a href="/delonghi-magnifica-troubleshooting.html" style="color: #1d5f8f;">DeLonghi Magnifica troubleshooting</a></li>
           <li><a href="/delonghi-dedica-troubleshooting.html" style="color: #1d5f8f;">DeLonghi Dedica (EC680/EC685)</a></li>
@@ -1304,10 +1208,80 @@
           <li><a href="/grinder-issues.html" style="color: #1d5f8f;">Grinder troubleshooting</a></li>
           <li><a href="https://kanencoffee.com" target="_blank" style="color: #a83a1f; font-weight: bold;">Shop espresso machines →</a></li>
         </ul>
-      </div>
-
-      <div class="nav-category" style="background: #f0f4ec; border-left-color: #3f642d;">
-        <h3>🔧 Problem-Specific Guides</h3>
+      </details>
+      <details class="nav-category">
+        <summary><h3>⚡ Water & Flow Issues</h3></summary>
+        <ul>
+          <li><a href="#q1">Machine not pumping water</a></li>
+          <li><a href="#q2">Espresso coming out slowly</a></li>
+          <li><a href="#q3">Weak or watery espresso</a></li>
+          <li><a href="#q4">Machine leaking water</a></li>
+          <li><a href="#q14">Machine overfilling shots</a></li>
+        </ul>
+      </details>
+      <details class="nav-category">
+        <summary><h3>🔥 Temperature & Steam</h3></summary>
+        <ul>
+          <li><a href="#q5">Machine not heating up</a></li>
+          <li><a href="#q6">Steam wand not working</a></li>
+          <li><a href="#q13">Pressure gauge problems</a></li>
+          <li><a href="#q16">Machine overheating</a></li>
+        </ul>
+      </details>
+      <details class="nav-category">
+        <summary><h3>☕ Taste & Quality</h3></summary>
+        <ul>
+          <li><a href="#q8">Espresso tastes bitter</a></li>
+          <li><a href="#q9">Espresso tastes sour</a></li>
+          <li><a href="#q11">No crema on espresso</a></li>
+          <li><a href="#q19">Metallic / off flavors</a></li>
+          <li><a href="#water-quality">Water quality issues</a></li>
+        </ul>
+      </details>
+      <details class="nav-category">
+        <summary><h3>🎯 Shot Consistency</h3></summary>
+        <ul>
+          <li><a href="#q21">Uneven flow / channeling</a></li>
+          <li><a href="#q22">Pre-infusion not working</a></li>
+          <li><a href="#q23">Group head sputtering</a></li>
+          <li><a href="#q24">Brew pressure too low/high</a></li>
+        </ul>
+      </details>
+      <details class="nav-category">
+        <summary><h3>⚙️ Grinder Issues</h3></summary>
+        <ul>
+          <li><a href="#q10">Grinder runs but no output</a></li>
+          <li><a href="#q25">Grinder jam / motor hums</a></li>
+          <li><a href="#grinder-section">Common grinder problems</a></li>
+          <li><a href="#grinder-section">Burr maintenance</a></li>
+          <li><a href="#grinder-section">Grinder troubleshooting</a></li>
+        </ul>
+      </details>
+      <details class="nav-category">
+        <summary><h3>🔧 Machine & Maintenance</h3></summary>
+        <ul>
+          <li><a href="#q7">How to descale machine</a></li>
+          <li><a href="#q12">Machine making loud noises</a></li>
+          <li><a href="#q15">Display shows error codes</a></li>
+          <li><a href="#q17">Portafilter stuck/won't lock</a></li>
+          <li><a href="#superauto-brew-unit-jam">Brew unit stuck (by brand)</a></li>
+          <li><a href="#motor-drive-failure">Drive motor failure</a></li>
+          <li><a href="#brew-group-grinding-noise">Brew group clicking/grinding</a></li>
+          <li><a href="#brew-group-incomplete-cycle">Brew group stops mid-cycle</a></li>
+        </ul>
+      </details>
+      <details class="nav-category">
+        <summary><h3>📋 Before You Start</h3></summary>
+        <ul>
+          <li><a href="/machines-we-service.html" style="color: #a83a1f; font-weight: bold;">Full list of machines we service (40+ brands)</a></li>
+          <li><a href="https://kanencoffee.com/pages/repairs" target="_blank" style="color: #a83a1f; font-weight: bold;">About our repair service</a></li>
+          <li><a href="https://kanencoffee.com/pages/book-appointment" style="color: #a83a1f; font-weight: bold;">Book repair appointment</a></li>
+          <li>Most repairs: $300–$650 (median ≈$450)</li>
+          <li>Ship or drop off available</li>
+        </ul>
+      </details>
+      <details class="nav-category">
+        <summary><h3>🔧 Problem-Specific Guides</h3></summary>
         <ul>
           <li><a href="/espresso-machine-no-water.html" style="color: #3f642d;">Espresso machine not pumping water</a></li>
           <li><a href="/espresso-machine-low-pressure.html" style="color: #3f642d;">Low brew pressure / weak shots</a></li>
@@ -1321,10 +1295,9 @@
           <li><a href="/espresso-machine-descaling-guide.html" style="color: #3f642d;">Complete descaling guide</a></li>
           <li><a href="/grinder-issues.html" style="color: #3f642d;">Grinder troubleshooting</a></li>
         </ul>
-      </div>
-
-      <div class="nav-category" style="background: #fcebea; border-left-color: #c0392b;">
-        <h3>⚠️ Error Code Lookup</h3>
+      </details>
+      <details class="nav-category">
+        <summary><h3>⚠️ Error Code Lookup</h3></summary>
         <ul>
           <li><a href="/delonghi-error-1101.html" style="color: #c0392b;">DeLonghi 1101 (General Alarm)</a></li>
           <li><a href="/delonghi-error-1026.html" style="color: #c0392b;">DeLonghi 1026 (Grind too fine)</a></li>
@@ -1338,69 +1311,8 @@
           <li><a href="/jura-error-16.html" style="color: #c0392b;">Jura Error 16 (Too cold)</a></li>
           <li><a href="/gaggia-empty-drip-tray-error.html" style="color: #c0392b;">Gaggia Empty drip tray</a></li>
         </ul>
-      </div>
+      </details>
     </div>
-  </section>
-
-  <section class="popular-videos" style="max-width: 1200px; margin: 0 auto 40px; padding: 0 20px;">
-    <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
-      <h2 style="color: #2c3e50; border-bottom: 3px solid #a83a1f; padding-bottom: 10px; margin-bottom: 20px;">📺 Popular Kanen Coffee Repair Videos</h2>
-      <p style="color: #555; margin-bottom: 25px; line-height: 1.7;">Real repairs from our Berkeley bench — these are the most-watched videos on <a href="https://www.youtube.com/@kanencoffee" target="_blank" rel="noopener" style="color: #a83a1f; font-weight: 600;">@kanencoffee</a> (5,000+ repair videos total, 6.8M+ lifetime views).</p>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 20px;">
-        <div>
-          <div class="yt-facade" data-vid="z39tjVdU7oI" data-title="DeLonghi Dedica EC680 Review" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/z39tjVdU7oI?autoplay=1';f.title='DeLonghi Dedica EC680 Review';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/z39tjVdU7oI/hqdefault.jpg" alt="DeLonghi Dedica EC680 Review" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
-          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">DeLonghi Dedica EC680 — Review</h3>
-          <p style="color:#666; font-size:0.85em;">93K views · <a href="/delonghi-dedica-troubleshooting.html" style="color:#a83a1f;">Dedica troubleshooting →</a></p>
-        </div>
-        <div>
-          <div class="yt-facade" data-vid="tUdwUm4qfgE" data-title="Jura E8 Full Service" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/tUdwUm4qfgE?autoplay=1';f.title='Jura E8 Full Service';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/tUdwUm4qfgE/hqdefault.jpg" alt="Jura E8 Full Service" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
-          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">Jura E8 — Full Service &amp; Inspection</h3>
-          <p style="color:#666; font-size:0.85em;">28K views · <a href="/jura-espresso-machine-troubleshooting.html" style="color:#a83a1f;">Jura troubleshooting →</a></p>
-        </div>
-        <div>
-          <div class="yt-facade" data-vid="iiFPOt7iDAU" data-title="Rancilio Silvia Pump Diagnosis and Replacement" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/iiFPOt7iDAU?autoplay=1';f.title='Rancilio Silvia Pump Diagnosis and Replacement';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/iiFPOt7iDAU/hqdefault.jpg" alt="Rancilio Silvia Pump Diagnosis and Replacement" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
-          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">Rancilio Silvia — Pump Diagnosis &amp; Replacement</h3>
-          <p style="color:#666; font-size:0.85em;">71K views · <a href="/rancilio-silvia-troubleshooting.html" style="color:#a83a1f;">Silvia troubleshooting →</a></p>
-        </div>
-        <div>
-          <div class="yt-facade" data-vid="BzRPHrDClpU" data-title="DeLonghi BCO430 Combi Service" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/BzRPHrDClpU?autoplay=1';f.title='DeLonghi BCO430 Combi Service';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/BzRPHrDClpU/hqdefault.jpg" alt="DeLonghi BCO430 Combi Service" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
-          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">DeLonghi BCO430 — Service</h3>
-          <p style="color:#666; font-size:0.85em;">69K views · <a href="/delonghi-bco430-troubleshooting.html" style="color:#a83a1f;">BCO430 troubleshooting →</a></p>
-        </div>
-        <div>
-          <div class="yt-facade" data-vid="XvIHrQiWoKY" data-title="Saeco Red Flashing Light Diagnosis" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/XvIHrQiWoKY?autoplay=1';f.title='Saeco Red Flashing Light Diagnosis';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/XvIHrQiWoKY/hqdefault.jpg" alt="Saeco Red Flashing Light Diagnosis" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
-          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">Saeco — Red Flashing Light Diagnosis</h3>
-          <p style="color:#666; font-size:0.85em;">45K views · <a href="/saeco-error-e01.html" style="color:#a83a1f;">Saeco error guide →</a></p>
-        </div>
-        <div>
-          <div class="yt-facade" data-vid="lO4V3Rm8m4c" data-title="DeLonghi Magnifica Error 1101 Solution" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/lO4V3Rm8m4c?autoplay=1';f.title='DeLonghi Magnifica Error 1101 Solution';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/lO4V3Rm8m4c/hqdefault.jpg" alt="DeLonghi Magnifica Error 1101 Solution" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
-          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">DeLonghi Magnifica — Error 1101 Solution</h3>
-          <p style="color:#666; font-size:0.85em;">58K views · <a href="/delonghi-error-1101.html" style="color:#a83a1f;">Error 1101 fix →</a></p>
-        </div>
-        <div>
-          <div class="yt-facade" data-vid="SgTVh4x9BnY" data-title="Breville 870XL Steam and Hot Water Not Functioning" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/SgTVh4x9BnY?autoplay=1';f.title='Breville 870XL Steam and Hot Water Not Functioning';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/SgTVh4x9BnY/hqdefault.jpg" alt="Breville 870XL Steam and Hot Water Not Functioning" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
-          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">Breville 870XL — No Steam / Hot Water</h3>
-          <p style="color:#666; font-size:0.85em;">49K views · <a href="/breville-barista-express-troubleshooting.html" style="color:#a83a1f;">Barista Express troubleshooting →</a></p>
-        </div>
-        <div>
-          <div class="yt-facade" data-vid="h9xHNFarl1w" data-title="Gaggia Accademia Empty Drip Tray Error" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/h9xHNFarl1w?autoplay=1';f.title='Gaggia Accademia Empty Drip Tray Error';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/h9xHNFarl1w/hqdefault.jpg" alt="Gaggia Accademia Empty Drip Tray Error" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
-          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">Gaggia Accademia — Empty Drip Tray Error</h3>
-          <p style="color:#666; font-size:0.85em;">34K views · <a href="/gaggia-empty-drip-tray-error.html" style="color:#a83a1f;">Drip tray error fix →</a></p>
-        </div>
-      </div>
-      <p style="margin-top: 25px; text-align: center;">
-        <a href="https://www.youtube.com/@kanencoffee" target="_blank" rel="noopener" style="background:#a83a1f; color:white; padding:12px 24px; border-radius:5px; text-decoration:none; font-weight:600; display:inline-block;">Browse 5,000+ repair videos on YouTube →</a>
-      </p>
-    </div>
-  </section>
-
-  <section class="hero-image">
-    <img src="/images/espresso-repair-bench.jpg" alt="Espresso machine repair bench at Kanen Coffee Berkeley"
-      width="1200" height="630"
-      loading="lazy"
-      decoding="async"
-      fetchpriority="low"
-      >
   </section>
 
   <main class="content-wrapper">
@@ -2518,13 +2430,83 @@
     </aside>
   </main>
 
-  <!-- Cross-site promo banner -->
-  <div style="background: linear-gradient(135deg, #2c3e50 0%, #a83a1f 100%); color: white; text-align: center; padding: 30px 20px; margin: 40px 0 0;">
-    <h3 style="margin-bottom: 10px; font-size: 1.4em;">Looking to Buy an Espresso Machine?</h3>
-    <p style="margin-bottom: 15px; opacity: 0.9;">Shop our curated selection of Lelit, Breville, Eureka, and Baratza at our online store</p>
-    <a href="https://kanencoffee.com" style="background: white; color: #a83a1f; padding: 12px 28px; border-radius: 6px; text-decoration: none; font-weight: bold; display: inline-block; margin: 5px;">Visit the Shop</a>
-    <a href="https://kanencoffee.com/pages/book-appointment" style="background: transparent; color: white; border: 2px solid white; padding: 10px 26px; border-radius: 6px; text-decoration: none; font-weight: bold; display: inline-block; margin: 5px;">Book a Repair</a>
-  </div>
+  <section class="popular-videos" style="max-width: 1200px; margin: 0 auto 40px; padding: 0 20px;">
+    <div style="background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);">
+      <h2 style="color: #2c3e50; border-bottom: 3px solid #a83a1f; padding-bottom: 10px; margin-bottom: 20px;">📺 Popular Kanen Coffee Repair Videos</h2>
+      <p style="color: #555; margin-bottom: 25px; line-height: 1.7;">Real repairs from our Berkeley bench — these are the most-watched videos on <a href="https://www.youtube.com/@kanencoffee" target="_blank" rel="noopener" style="color: #a83a1f; font-weight: 600;">@kanencoffee</a> (5,000+ repair videos total, 6.8M+ lifetime views).</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 20px;">
+        <div>
+          <div class="yt-facade" data-vid="z39tjVdU7oI" data-title="DeLonghi Dedica EC680 Review" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/z39tjVdU7oI?autoplay=1';f.title='DeLonghi Dedica EC680 Review';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/z39tjVdU7oI/hqdefault.jpg" alt="DeLonghi Dedica EC680 Review" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">DeLonghi Dedica EC680 — Review</h3>
+          <p style="color:#666; font-size:0.85em;">93K views · <a href="/delonghi-dedica-troubleshooting.html" style="color:#a83a1f;">Dedica troubleshooting →</a></p>
+        </div>
+        <div>
+          <div class="yt-facade" data-vid="tUdwUm4qfgE" data-title="Jura E8 Full Service" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/tUdwUm4qfgE?autoplay=1';f.title='Jura E8 Full Service';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/tUdwUm4qfgE/hqdefault.jpg" alt="Jura E8 Full Service" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">Jura E8 — Full Service &amp; Inspection</h3>
+          <p style="color:#666; font-size:0.85em;">28K views · <a href="/jura-espresso-machine-troubleshooting.html" style="color:#a83a1f;">Jura troubleshooting →</a></p>
+        </div>
+        <div>
+          <div class="yt-facade" data-vid="iiFPOt7iDAU" data-title="Rancilio Silvia Pump Diagnosis and Replacement" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/iiFPOt7iDAU?autoplay=1';f.title='Rancilio Silvia Pump Diagnosis and Replacement';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/iiFPOt7iDAU/hqdefault.jpg" alt="Rancilio Silvia Pump Diagnosis and Replacement" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">Rancilio Silvia — Pump Diagnosis &amp; Replacement</h3>
+          <p style="color:#666; font-size:0.85em;">71K views · <a href="/rancilio-silvia-troubleshooting.html" style="color:#a83a1f;">Silvia troubleshooting →</a></p>
+        </div>
+        <div>
+          <div class="yt-facade" data-vid="BzRPHrDClpU" data-title="DeLonghi BCO430 Combi Service" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/BzRPHrDClpU?autoplay=1';f.title='DeLonghi BCO430 Combi Service';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/BzRPHrDClpU/hqdefault.jpg" alt="DeLonghi BCO430 Combi Service" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">DeLonghi BCO430 — Service</h3>
+          <p style="color:#666; font-size:0.85em;">69K views · <a href="/delonghi-bco430-troubleshooting.html" style="color:#a83a1f;">BCO430 troubleshooting →</a></p>
+        </div>
+        <div>
+          <div class="yt-facade" data-vid="XvIHrQiWoKY" data-title="Saeco Red Flashing Light Diagnosis" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/XvIHrQiWoKY?autoplay=1';f.title='Saeco Red Flashing Light Diagnosis';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/XvIHrQiWoKY/hqdefault.jpg" alt="Saeco Red Flashing Light Diagnosis" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">Saeco — Red Flashing Light Diagnosis</h3>
+          <p style="color:#666; font-size:0.85em;">45K views · <a href="/saeco-error-e01.html" style="color:#a83a1f;">Saeco error guide →</a></p>
+        </div>
+        <div>
+          <div class="yt-facade" data-vid="lO4V3Rm8m4c" data-title="DeLonghi Magnifica Error 1101 Solution" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/lO4V3Rm8m4c?autoplay=1';f.title='DeLonghi Magnifica Error 1101 Solution';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/lO4V3Rm8m4c/hqdefault.jpg" alt="DeLonghi Magnifica Error 1101 Solution" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">DeLonghi Magnifica — Error 1101 Solution</h3>
+          <p style="color:#666; font-size:0.85em;">58K views · <a href="/delonghi-error-1101.html" style="color:#a83a1f;">Error 1101 fix →</a></p>
+        </div>
+        <div>
+          <div class="yt-facade" data-vid="SgTVh4x9BnY" data-title="Breville 870XL Steam and Hot Water Not Functioning" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/SgTVh4x9BnY?autoplay=1';f.title='Breville 870XL Steam and Hot Water Not Functioning';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/SgTVh4x9BnY/hqdefault.jpg" alt="Breville 870XL Steam and Hot Water Not Functioning" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">Breville 870XL — No Steam / Hot Water</h3>
+          <p style="color:#666; font-size:0.85em;">49K views · <a href="/breville-barista-express-troubleshooting.html" style="color:#a83a1f;">Barista Express troubleshooting →</a></p>
+        </div>
+        <div>
+          <div class="yt-facade" data-vid="h9xHNFarl1w" data-title="Gaggia Accademia Empty Drip Tray Error" style="position:relative;padding-bottom:56.25%;height:0;cursor:pointer;" onclick="(function(el){var f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/h9xHNFarl1w?autoplay=1';f.title='Gaggia Accademia Empty Drip Tray Error';f.allow='accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture';f.allowFullscreen=true;f.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;';el.parentNode.replaceChild(f,el);})(this)"><img src="https://i.ytimg.com/vi/h9xHNFarl1w/hqdefault.jpg" alt="Gaggia Accademia Empty Drip Tray Error" loading="lazy" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;border-radius:8px;"><div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:64px;height:64px;background:rgba(0,0,0,0.7);border-radius:50%;display:flex;align-items:center;justify-content:center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg></div></div>
+          <h3 style="color:#2c3e50; font-size:1.05em; margin-top:10px;">Gaggia Accademia — Empty Drip Tray Error</h3>
+          <p style="color:#666; font-size:0.85em;">34K views · <a href="/gaggia-empty-drip-tray-error.html" style="color:#a83a1f;">Drip tray error fix →</a></p>
+        </div>
+      </div>
+      <p style="margin-top: 25px; text-align: center;">
+        <a href="https://www.youtube.com/@kanencoffee" target="_blank" rel="noopener" style="background:#a83a1f; color:white; padding:12px 24px; border-radius:5px; text-decoration:none; font-weight:600; display:inline-block;">Browse 5,000+ repair videos on YouTube →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="hero-image">
+    <img src="/images/espresso-repair-bench.jpg" alt="Espresso machine repair bench at Kanen Coffee Berkeley"
+      width="1200" height="630"
+      loading="lazy"
+      decoding="async"
+      fetchpriority="low"
+      >
+  </section>
+
+  <section class="shop-cta" style="margin: 0 auto 24px; max-width: 1100px; padding: 0 20px;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 16px;">
+      <a href="https://kanencoffee.com/" target="_blank" rel="noopener" style="display:block; padding:18px 20px; background:#fff7f3; border:1px solid #f3d8c9; border-left:4px solid #a83a1f; border-radius:8px; text-decoration:none; color:#222;">
+        <strong style="display:block; font-size:1.05em; color:#a83a1f; margin-bottom:4px;">☕ Berkeley Espresso Showroom</strong>
+        <span style="display:block; font-size:.95em; line-height:1.4;">40+ machines on the floor — Breville, Lelit, La Marzocco, ECM, Profitec, Rocket, Flair, Gaggia. <strong>2319 4th St, Berkeley.</strong></span>
+      </a>
+      <a href="https://kanencoffee.com/pages/repairs" target="_blank" rel="noopener" style="display:block; padding:18px 20px; background:#f3f8ff; border:1px solid #cfdcef; border-left:4px solid #3a6fbf; border-radius:8px; text-decoration:none; color:#222;">
+        <strong style="display:block; font-size:1.05em; color:#3a6fbf; margin-bottom:4px;">🔧 Repair Service</strong>
+        <span style="display:block; font-size:.95em; line-height:1.4;">Authorized for Breville, Lelit, La Marzocco, Delonghi & more. Bay Area drop-off or ship-in from anywhere in the US.</span>
+      </a>
+      <a href="https://kanencoffee.com/pages/book-appointment?book=new-machine" target="_blank" rel="noopener" style="display:block; padding:18px 20px; background:#fff; border:1px solid #ddd; border-left:4px solid #246b45; border-radius:8px; text-decoration:none; color:#222;">
+        <strong style="display:block; font-size:1.05em; color:#246b45; margin-bottom:4px;">📅 Book a Buying Consultation</strong>
+        <span style="display:block; font-size:.95em; line-height:1.4;">Buying advice with our service team, in person at our Berkeley showroom. Book online.</span>
+      </a>
+    </div>
+  </section>
 
   <footer>
     <p><strong>Kanen Coffee – Espresso Machine Sales, Service & Repair</strong></p>

@@ -35,3 +35,17 @@
   .content-wrapper { gap: 20px; }
   .faq-answer { padding-left: 0; }
 }
+.help-home > header { padding: 28px 20px; }
+.help-home > header h1 { font-size: 28px; line-height: 1.2; margin-bottom: 10px; }
+.help-home .header-subtitle { font-size: 16px; line-height: 1.5; }
+.help-home .search-wrapper { margin-top: 20px; }
+.help-home .quick-nav { margin: 24px auto; padding: 0 20px; background: transparent; box-shadow: none; border-radius: 0; }
+.help-home .quick-nav h2 { font-size: 24px; text-align: left; margin-bottom: 12px; }
+.help-home .nav-grid { gap: 0 24px; align-items: start; }
+.help-home details.nav-category { padding: 14px 0; border: 0; border-bottom: 1px solid #c6c6c6; border-radius: 0; background: transparent; }
+.help-home .nav-category summary { cursor: pointer; min-height: 24px; }
+.help-home .nav-category summary h3 { display: inline; margin: 0; font-size: 16px; }
+.help-home .nav-category summary:focus-visible { outline: 2px solid #74121a; outline-offset: 4px; }
+.help-home .nav-category ul { margin-top: 12px; }
+.help-home .nav-category a { display: inline-block; padding: 6px 0; text-decoration-color: currentColor; }
+.help-shop-promo { margin-top: 32px !important; }
