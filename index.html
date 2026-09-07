@@ -818,13 +818,21 @@
     }
 
     /* FAQ accordion */
-    .faq-item h2 {
+    .faq-question {
       cursor: pointer;
       position: relative;
-      padding-right: 30px;
+      display: block;
+      width: 100%;
+      min-height: 44px;
+      padding: 0 30px 0 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      text-align: left;
     }
 
-    .faq-item h2::after {
+    .faq-question::after {
       content: "\25BE";
       position: absolute;
       right: 0;
@@ -835,7 +843,7 @@
       color: #999;
     }
 
-    .faq-item.expanded h2::after {
+    .faq-item.expanded .faq-question::after {
       transform: translateY(-50%) rotate(180deg);
     }
 
@@ -1139,10 +1147,12 @@
   <!-- Security headers (meta equivalents) -->
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://tagmanager.google.com https://www.google-analytics.com https://region1.google-analytics.com https://www.clarity.ms https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://stats.g.doubleclick.net https://www.clarity.ms https://*.clarity.ms; frame-src https://www.googletagmanager.com https://tagmanager.google.com https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self';">
-  <link rel="stylesheet" href="/help-responsive.css?v=20260906-2">
+  <link rel="stylesheet" href="/help-responsive.css?v=20260907">
 </head>
 
 <body class="help-home">
+  <a class="help-skip-link" href="#main-content">Skip to content</a>
+  <noscript><style>.faq-item .faq-answer { display: block; }</style></noscript>
   <!-- Google Tag Manager (noscript) -->
   <!-- End Google Tag Manager (noscript) -->
 
@@ -1315,7 +1325,7 @@
     </div>
   </section>
 
-  <main class="content-wrapper">
+  <main class="content-wrapper" id="main-content" tabindex="-1">
     <!-- Main FAQ Content -->
     <section class="faq-section" id="faq">
       <div class="filter-bar" id="faq-filter-bar" role="group" aria-label="Filter issues by category">
@@ -2538,7 +2548,7 @@
   <!-- Search logging: set this to your Google Apps Script URL (see README) -->
   <script>window.__SEARCH_LOG_URL = 'https://script.google.com/macros/s/AKfycbz_1_xC6KPBXaFxp5AmAuTLIA7vnmjaViKetxUGsXUtn0Jr0VxJVHMg9sECINWIFMF7kQ/exec';</script>
   <script src="/analytics-events.v1.js" defer></script>
-  <script src="/search.js?v=20260906" defer></script>
+  <script src="/search.js?v=20260907" defer></script>
   <script>
     /* Hamburger toggle \u2014 runs immediately (lightweight, interactive element) */
     (function() {
@@ -2552,12 +2562,12 @@
       }
     })();
 
-    /* FAQ accordion + category setup + CTA injection \u2014 deferred off main thread */
+    /* Native FAQ controls, deep links, and existing booking links. */
     (function() {
       function setupFAQ() {
         var items = document.querySelectorAll('.faq-item');
 
-        /* ARIA + event listeners \u2014 chunked to avoid long tasks */
+        /* Keep headings as headings and give each answer a native button. */
         var i = 0;
         function processChunk() {
           var end = Math.min(i + 15, items.length);
@@ -2565,21 +2575,23 @@
             var item = items[i];
             var h2 = item.querySelector('h2');
             if (!h2) continue;
-            h2.setAttribute('role', 'button');
-            h2.setAttribute('tabindex', '0');
-            h2.setAttribute('aria-expanded', item.classList.contains('expanded') ? 'true' : 'false');
-            h2.addEventListener('click', function() {
+            if (!item.id) item.id = 'issue-' + (i + 1);
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'faq-question';
+            button.id = item.id + '-question';
+            while (h2.firstChild) button.appendChild(h2.firstChild);
+            h2.appendChild(button);
+            var answer = item.querySelector('.faq-answer');
+            if (answer) {
+              if (!answer.id) answer.id = item.id + '-answer';
+              button.setAttribute('aria-controls', answer.id);
+            }
+            button.setAttribute('aria-expanded', item.classList.contains('expanded') ? 'true' : 'false');
+            button.addEventListener('click', function() {
               var it = this.closest('.faq-item');
               it.classList.toggle('expanded');
               this.setAttribute('aria-expanded', it.classList.contains('expanded') ? 'true' : 'false');
-            });
-            h2.addEventListener('keydown', function(e) {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                var it = this.closest('.faq-item');
-                it.classList.toggle('expanded');
-                this.setAttribute('aria-expanded', it.classList.contains('expanded') ? 'true' : 'false');
-              }
             });
           }
           if (i < items.length) {
@@ -2596,19 +2608,17 @@
             var hash = window.location.hash.replace('#', '');
             if (!hash) return;
             var target = document.getElementById(hash);
-            if (target) {
-              var faqItem = target.closest('.faq-item') || target;
-              if (faqItem.classList.contains('faq-item')) {
-                faqItem.classList.add('expanded');
-                var h2 = faqItem.querySelector('h2');
-                if (h2) h2.setAttribute('aria-expanded', 'true');
+            if (target && !target.matches('main, [role="main"]')) {
+              var faqItem = target.closest('.faq-item') || target.querySelector('.faq-item');
+              if (!faqItem) {
+                var next = target.nextElementSibling;
+                while (next && !next.classList.contains('faq-item')) { next = next.nextElementSibling; }
+                faqItem = next;
               }
-              var next = target.nextElementSibling;
-              while (next && !next.classList.contains('faq-item')) { next = next.nextElementSibling; }
-              if (next && next.classList.contains('faq-item')) {
-                next.classList.add('expanded');
-                var h2n = next.querySelector('h2');
-                if (h2n) h2n.setAttribute('aria-expanded', 'true');
+              if (faqItem) {
+                faqItem.classList.add('expanded');
+                var control = faqItem.querySelector('.faq-question');
+                if (control) control.setAttribute('aria-expanded', 'true');
               }
             }
           }
@@ -2627,11 +2637,7 @@
         }
       }
 
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(setupFAQ, { timeout: 2000 });
-      } else {
-        setTimeout(setupFAQ, 100);
-      }
+      setupFAQ();
     })();
 
     /* Back to top */

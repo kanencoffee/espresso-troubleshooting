@@ -67,12 +67,10 @@
     hideDropdown();
     if (result.type === 'guide') { window.location.assign(result.href); return; }
     result.el.classList.add('expanded');
-    var heading = result.el.querySelector('h2');
-    if (heading) {
-      heading.setAttribute('role', 'button');
-      heading.setAttribute('tabindex', '0');
-      heading.setAttribute('aria-expanded', 'true');
-      heading.focus({ preventScroll: true });
+    var button = result.el.querySelector('.faq-question') || result.el.querySelector('h2[role="button"]');
+    if (button) {
+      button.setAttribute('aria-expanded', 'true');
+      button.focus({ preventScroll: true });
     }
     result.el.scrollIntoView({ behavior: 'auto', block: 'start' });
   }
@@ -102,7 +100,10 @@
       option.append(title, type);
       option.addEventListener('mousedown', function (event) { event.preventDefault(); });
       option.addEventListener('click', function () { selectResult(result); });
-      option.addEventListener('mouseenter', function () { setActive(index); });
+      // Layout changes under a stationary pointer must not replace the keyboard selection.
+      option.addEventListener('pointermove', function (event) {
+        if (event.movementX || event.movementY) setActive(index);
+      });
       dropdown.appendChild(option);
     });
     dropdown.hidden = suggestions.length === 0;
