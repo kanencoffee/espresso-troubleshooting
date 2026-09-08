@@ -1,15 +1,15 @@
 {
   "_readme": "CANONICAL Kanen Coffee repair pricing \u2014 single source of truth. Confirmed by Sam 2026-07-31, grounded in 12 months of QuickBooks invoices. When prices change, update THIS file first, then sweep help.kanencoffee.com pages AND kanencoffee.com Shopify pages (repairs, repairs-<brand>, faq, from-youtube, oakland/sf pages) \u2014 visible text AND FAQ JSON-LD schema together.",
-  "updated": "2026-07-31",
+  "updated": "2026-09-07",
   "deposits": {
     "home": 185,
     "jura_lamarzocco_miele": 225,
     "commercial": [
-      300,
+      400,
       600
     ],
     "policy": "Non-refundable. Applied toward the final repair bill. Separate from diagnostic charges.",
-    "_commercial_note": "Published as a $300\u2013$600 range (Sam, 2026-07-31); quoted per job within the range. QB item list price is $600."
+    "_commercial_note": "Commercial deposit confirmed by the business owner on 2026-09-07: $400\u2013$600, quoted per job within the range."
   },
   "hourly_rates": {
     "standard_labor_and_diagnostic": 185,
@@ -60,5 +60,7 @@
     }
   },
   "parts_policy": "Online store part prices are intentionally LOWER than in-repair prices. Publish online prices as 'in our online store' (Ulka EX5 $44, BES870XL solenoid $95, Gaggia Classic solenoid $74.95, Silvia Tune-Up Kit $19.99). Parts supplied during an in-shop repair are billed higher (Ulka EX5 $75, BES870XL solenoid $125). Never publish prices for parts not sold in the store.",
-  "turnaround": "3\u20134 weeks (all published turnaround claims; confirmed by Sam 2026-08-01)"
+  "estimate_time": "1\u20132 weeks",
+  "turnaround": "4\u20136 weeks for the full repair process, including the estimate stage",
+  "_timing_note": "Estimate timing and total turnaround confirmed by the business owner on 2026-09-07. The 1\u20132 weeks to estimate are included in the 4\u20136 week total, not added afterward."
 }
