@@ -10,6 +10,8 @@
 .brand-grid { grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr)); }
 .mobile-cta-bar, #kc-consent-banner { box-sizing: border-box; max-width: 100vw !important; }
 #kc-consent-banner p a { color: #fff; text-decoration: underline; }
+#kc-consent-banner :is(a, button):focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+#kc-consent-banner #kc-accept { color: #fff !important; background-color: #a83a1f !important; }
 footer a { color: #ffb39e; text-decoration: underline; text-underline-offset: 3px; }
 body:not(.help-home) > nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 12px; }
 body:not(.help-home) > nav > a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin: 0; padding: 6px 4px; }
@@ -80,4 +82,21 @@ body > nav a:focus-visible, footer a:focus-visible { outline: 2px solid #fff; ou
 }
 .help-video-alternative a:focus-visible {
   outline: 3px solid #74121a; outline-offset: 4px;
+}
+
+/* At high zoom or in landscape, leave room to read without choosing cookies. */
+@media (max-height: 500px) {
+  html { scroll-padding-top: 16px; scroll-padding-bottom: calc(50vh + 16px); }
+  body > nav, .sidebar, .mobile-cta-bar { position: static !important; }
+  #main-content { scroll-margin-top: 16px; }
+  .faq-item, a[id].anchor-tag { scroll-margin-top: 0; }
+  #search-dropdown li { padding-block: 8px; }
+  .back-to-top { display: none !important; }
+  #kc-consent-banner {
+    max-height: 50vh !important;
+    max-height: 50dvh !important;
+    overflow-y: auto !important;
+    scroll-padding-block: 8px;
+    overscroll-behavior: contain;
+  }
 }
