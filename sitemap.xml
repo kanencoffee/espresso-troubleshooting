@@ -63,6 +63,13 @@
   <url><loc>https://help.kanencoffee.com/la-marzocco-steam-valve-rebuild.html</loc><lastmod>2026-09-04</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://help.kanencoffee.com/gaggia-solenoid-valve-replacement.html</loc><lastmod>2026-09-04</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
 
+  <url>
+    <loc>https://help.kanencoffee.com/accessibility.html</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
   <!-- LLMs.txt for AI discoverability -->
   <url>
     <loc>https://help.kanencoffee.com/llms.txt</loc>
