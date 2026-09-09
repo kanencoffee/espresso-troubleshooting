@@ -58,3 +58,18 @@ body > nav a:focus-visible, footer a:focus-visible { outline: 2px solid #fff; ou
 .help-home .nav-category ul { margin-top: 12px; }
 .help-home .nav-category a { display: inline-block; padding: 6px 0; text-decoration-color: currentColor; }
 .help-shop-promo { margin-top: 32px !important; }
+
+.yt-facade, .yt-player {
+  display: block; position: relative; width: 100%; aspect-ratio: 16 / 9;
+  padding: 0; border: 0; border-radius: 8px; background: #111;
+}
+.yt-facade { cursor: pointer; }
+.yt-facade img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+.yt-play-icon {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 64px; height: 64px; background: rgba(0, 0, 0, .7); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.yt-facade:focus-visible, .yt-player:focus-visible, .back-to-top:focus-visible {
+  outline: 3px solid #74121a; outline-offset: 4px; box-shadow: 0 0 0 4px #fff;
+}
