@@ -73,3 +73,11 @@ body > nav a:focus-visible, footer a:focus-visible { outline: 2px solid #fff; ou
 .yt-facade:focus-visible, .yt-player:focus-visible, .back-to-top:focus-visible {
   outline: 3px solid #74121a; outline-offset: 4px; box-shadow: 0 0 0 4px #fff;
 }
+.help-video-alternative { margin: 8px 0; }
+.help-video-alternative a {
+  display: inline-block; min-height: 24px; padding: 6px 0;
+  color: #8b211b; text-decoration: underline; text-underline-offset: 3px;
+}
+.help-video-alternative a:focus-visible {
+  outline: 3px solid #74121a; outline-offset: 4px;
+}
