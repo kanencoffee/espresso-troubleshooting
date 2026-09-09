@@ -2667,6 +2667,30 @@
     (function() {
       var btn = document.getElementById('back-to-top');
       if (!btn) return;
+      function avoidBottomOverlays() {
+        var covered = 0;
+        document.querySelectorAll('#kc-consent-banner, .mobile-cta-bar').forEach(function(el) {
+          var rect = el.getBoundingClientRect();
+          if (getComputedStyle(el).position === 'fixed' && rect.height && rect.top < window.innerHeight) {
+            covered = Math.max(covered, window.innerHeight - rect.top);
+          }
+        });
+        btn.style.bottom = (covered + 20) + 'px';
+      }
+      var observedOverlays = new WeakSet();
+      var overlayResize = window.ResizeObserver ? new ResizeObserver(avoidBottomOverlays) : null;
+      function observeBottomOverlays() {
+        document.querySelectorAll('#kc-consent-banner, .mobile-cta-bar').forEach(function(el) {
+          if (overlayResize && !observedOverlays.has(el)) {
+            overlayResize.observe(el);
+            observedOverlays.add(el);
+          }
+        });
+        avoidBottomOverlays();
+      }
+      new MutationObserver(observeBottomOverlays).observe(document.body, { childList: true });
+      window.addEventListener('resize', avoidBottomOverlays);
+      observeBottomOverlays();
       window.addEventListener('scroll', function() {
         if (window.scrollY > 600) {
           btn.classList.add('visible');
